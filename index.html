@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Figueroa Seguros — Gestión</title>
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --card: #ffffff;
+    --border: #d8d4cc;
+    --text: #1a1a1a;
+    --muted: #6b6660;
+    --accent: #1a1a1a;
+    --success-bg: #ecfdf5;
+    --success-border: #34d399;
+    --success-text: #065f46;
+    --warning-bg: #fff8ec;
+    --warning-border: #f0a500;
+    --warning-text: #7a4500;
+    --danger-bg: #fef2f2;
+    --danger-border: #e74c3c;
+    --danger-text: #7a1515;
+    --radius: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  .header {
+    background: var(--accent);
+    color: #fff;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-marca {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .s-box {
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+
+  .header-sub {
+    font-size: 11px;
+    opacity: 0.65;
+  }
+
+  .tabs-nav {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tab-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 12px 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.15s;
+    white-space: nowrap;
+    font-family: inherit;
+  }
+
+  .tab-btn.active {
+    color: var(--text);
+    border-bottom-color: var(--text);
+  }
+
+  .main { max-width: 600px; margin: 0 auto; padding: 16px; }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+
+  .card-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .full { grid-column: 1 / -1; }
+
+  .field { display: flex; flex-direction: column; gap: 4px; }
+
+  .field label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.3px;
+  }
+
+  .req { color: #c0392b; }
+
+  .field input,
+  .field select {
+    font-family: inherit;
+    font-size: 15px;
+    padding: 10px 11px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: #fff;
+    color: var(--text);
+    transition: border-color 0.15s;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+  }
+
+  .field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6660' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 28px;
+  }
+
+  .field input:focus,
+  .field select:focus {
+    outline: none;
+    border-color: var(--text);
+    box-shadow: 0 0 0 3px rgba(26,26,26,0.08);
+  }
+
+  .precio-calc {
+    background: #f7f5f0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 11px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    min-height: 44px;
+  }
+
+  .btn-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 13px 16px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: var(--radius);
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--text);
+    transition: all 0.15s;
+  }
+
+  .btn:active { transform: scale(0.98); }
+  .btn-primary { background: var(--text); color: #fff; border-color: var(--text); }
+
+  .alerta {
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    font-size: 14px;
+    margin-bottom: 12px;
+    display: none;
+    line-height: 1.5;
+  }
+
+  .alerta.warning {
+    background: var(--warning-bg);
+    border: 1px solid var(--warning-border);
+    color: var(--warning-text);
+    display: block;
+  }
+
+  .alerta.danger {
+    background: var(--danger-bg);
+    border: 1px solid var(--danger-border);
+    color: var(--danger-text);
+    display: block;
+  }
+
+  .alerta.success {
+    background: var(--success-bg);
+    border: 1px solid var(--success-border);
+    color: var(--success-text);
+    display: block;
+  }
+
+  .alerta.loading {
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    color: #555;
+    display: block;
+  }
+
+  .spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #ccc;
+    border-top-color: #333;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    vertical-align: -3px;
+    margin-right: 6px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 480px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .full { grid-column: 1; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="header-marca">
+      FIGUEROA <span class="s-box">S</span> SEGUROS GENERALES
+    </div>
+    <div class="header-sub">Carga de datos</div>
+  </div>
+</div>
+
+<div class="tabs-nav">
+  <button class="tab-btn active" onclick="cambiarTab('asegurado', this)">
+    ➕ Nuevo asegurado
+  </button>
+  <button class="tab-btn" onclick="cambiarTab('pago', this)">
+    💲 Registrar pago
+  </button>
+</div>
+
+<div class="main">
+
+  <!-- ══ TAB NUEVO ASEGURADO ══════════════════════════════ -->
+  <div id="panel-asegurado" class="panel active">
+
+    <div id="alerta-asegurado" class="alerta"></div>
+
+    <div class="card">
+      <div class="card-title">Datos personales</div>
+      <div class="grid-2">
+        <div class="field full">
+          <label>Apellido y nombre <span class="req">*</span></label>
+          <input type="text" id="a-nombre" placeholder="Ej: Ruiz, Néstor" autocomplete="name">
+        </div>
+        <div class="field">
+          <label>DNI</label>
+          <input type="text" id="a-dni" placeholder="25.123.456" inputmode="numeric">
+        </div>
+        <div class="field">
+          <label>Teléfono</label>
+          <input type="tel" id="a-tel" placeholder="2664-123456">
+        </div>
+        <div class="field full">
+          <label>Dirección</label>
+          <input type="text" id="a-dir" placeholder="Av. Illia 123, San Luis">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Vehículo y póliza</div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Patente <span class="req">*</span></label>
+          <input type="text" id="a-patente" placeholder="AB 123 CD" oninput="this.value=this.value.toUpperCase()">
+        </div>
+        <div class="field">
+          <label>Descripción del vehículo</label>
+          <input type="text" id="a-vehiculo" placeholder="Ej: Ford Ranger 2020">
+        </div>
+        <div class="field">
+          <label>¿Es trailer?</label>
+          <select id="a-trailer" onchange="toggleTrailer(this.value)">
+            <option value="No">No</option>
+            <option value="Sí">Sí</option>
+          </select>
+        </div>
+        <div class="field" id="campo-cliente-ref" style="display:none">
+          <label>Cliente asociado (titular)</label>
+          <input type="text" id="a-cliente-ref" placeholder="Nombre del titular">
+        </div>
+        <div class="field">
+          <label>N° Póliza <span class="req">*</span></label>
+          <input type="text" id="a-poliza" placeholder="8.229.136">
+        </div>
+        <div class="field">
+          <label>Compañía aseguradora</label>
+          <select id="a-compania" onchange="toggleOtraComp(this.value)">
+            <option>Agrosalta</option>
+            <option>Federación Patronal</option>
+            <option>Sancor Seguros</option>
+            <option>La Meridional</option>
+            <option>Mapfre</option>
+            <option>Rivadavia</option>
+            <option value="_otra">Otra...</option>
+          </select>
+        </div>
+        <div class="field" id="campo-otra-comp" style="display:none">
+          <label>Nombre de la compañía</label>
+          <input type="text" id="a-otra-comp" placeholder="Nombre">
+        </div>
+        <div class="field">
+          <label>CUIT compañía</label>
+          <input type="text" id="a-cuit" placeholder="30-50006485-0">
+        </div>
+        <div class="field">
+          <label>Período desde</label>
+          <input type="date" id="a-desde" onchange="calcHasta()">
+        </div>
+        <div class="field">
+          <label>Período hasta <small>(auto +6 meses)</small></label>
+          <input type="date" id="a-hasta">
+        </div>
+        <div class="field">
+          <label>Día de pago asignado</label>
+          <input type="number" id="a-dia-pago" min="1" max="28" placeholder="Ej: 10" inputmode="numeric">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Valores del seguro (cuota mensual)</div>
+      <div class="grid-3">
+        <div class="field">
+          <label>Precio público ($) <span class="req">*</span></label>
+          <input type="number" id="a-pub" placeholder="0" inputmode="decimal" oninput="calcPrecios()">
+        </div>
+        <div class="field">
+          <label>Valor premio cuota ($)</label>
+          <input type="number" id="a-premio" placeholder="0" inputmode="decimal" oninput="calcPrecios()">
+        </div>
+        <div class="field">
+          <label>Premio −19% (a compañía)</label>
+          <div class="precio-calc" id="a-premio-calc">—</div>
+        </div>
+      </div>
+      <p class="note">
+        <strong>Precio público:</strong> lo que cobrás al cliente.<br>
+        <strong>Valor premio:</strong> lo que indica la compañía por esa cuota.<br>
+        <strong>Premio −19%:</strong> lo que vos le pagás a la compañía.
+      </p>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn" onclick="limpiarAsegurado()">Limpiar</button>
+      <button class="btn btn-primary" onclick="guardarAsegurado()">Guardar asegurado</button>
+    </div>
+  </div>
+
+  <!-- ══ TAB REGISTRAR PAGO ════════════════════════════════ -->
+  <div id="panel-pago" class="panel">
+
+    <div id="alerta-pago" class="alerta"></div>
+
+    <div class="card">
+      <div class="card-title">Datos del asegurado</div>
+      <div class="grid-2">
+        <div class="field full">
+          <label>Apellido y nombre <span class="req">*</span></label>
+          <input type="text" id="p-nombre" placeholder="Ej: Ruiz, Néstor">
+        </div>
+        <div class="field">
+          <label>N° Póliza <span class="req">*</span></label>
+          <input type="text" id="p-poliza" placeholder="8.229.136">
+        </div>
+        <div class="field">
+          <label>Patente</label>
+          <input type="text" id="p-patente" placeholder="AB 123 CD" oninput="this.value=this.value.toUpperCase()">
+        </div>
+        <div class="field">
+          <label>Compañía</label>
+          <select id="p-compania">
+            <option>Agrosalta</option>
+            <option>Federación Patronal</option>
+            <option>Sancor Seguros</option>
+            <option>La Meridional</option>
+            <option>Mapfre</option>
+            <option>Rivadavia</option>
+            <option>Otra</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>CUIT compañía</label>
+          <input type="text" id="p-cuit" placeholder="30-50006485-0">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Datos del pago</div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Fecha de pago <span class="req">*</span></label>
+          <input type="date" id="p-fecha">
+        </div>
+        <div class="field">
+          <label>Monto cobrado ($) <span class="req">*</span></label>
+          <input type="number" id="p-monto" placeholder="0" inputmode="decimal">
+        </div>
+        <div class="field">
+          <label>Forma de pago</label>
+          <select id="p-forma">
+            <option>Efectivo</option>
+            <option>Transferencia</option>
+            <option>Cheque</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Referencia / N° cheque</label>
+          <input type="text" id="p-ref" placeholder="Opcional">
+        </div>
+        <div class="field">
+          <label>Valor premio cuota ($)</label>
+          <input type="number" id="p-premio" placeholder="0" inputmode="decimal" oninput="calcPremioNeto()">
+        </div>
+        <div class="field">
+          <label>Premio −19% (a compañía)</label>
+          <div class="precio-calc" id="p-premio-calc">—</div>
+        </div>
+        <div class="field">
+          <label>Endoso</label>
+          <input type="text" id="p-endoso" placeholder="Si aplica">
+        </div>
+        <div class="field full">
+          <label>Observaciones</label>
+          <input type="text" id="p-obs" placeholder="Ej: Cuota junio 2026">
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn" onclick="limpiarPago()">Limpiar</button>
+      <button class="btn btn-primary" onclick="guardarPago()">Registrar pago</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ── ID de la planilla y URL del Apps Script ────────────
+  var SHEET_ID = '1xevLHs_LE1VEZEAyPgRXah-rU5uUOjGkFTySBQft9hM';
+  var SCRIPT_URL = 'TU_URL_APPS_SCRIPT_AQUI'; // Reemplazar con la URL del Apps Script
+
+  // ── Tabs ───────────────────────────────────────────────
+  function cambiarTab(id, btn) {
+    document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
+    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.getElementById('panel-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // ── Fecha hoy por defecto ──────────────────────────────
+  var hoy = new Date().toISOString().split('T')[0];
+  document.getElementById('p-fecha').value = hoy;
+
+  // ── Toggles ────────────────────────────────────────────
+  function toggleTrailer(val) {
+    document.getElementById('campo-cliente-ref').style.display = val === 'Sí' ? 'block' : 'none';
+  }
+
+  function toggleOtraComp(val) {
+    document.getElementById('campo-otra-comp').style.display = val === '_otra' ? 'block' : 'none';
+  }
+
+  // ── Auto período hasta (+6 meses) ─────────────────────
+  function calcHasta() {
+    var desde = document.getElementById('a-desde').value;
+    if (!desde) return;
+    var d = new Date(desde);
+    d.setMonth(d.getMonth() + 6);
+    document.getElementById('a-hasta').value = d.toISOString().split('T')[0];
+  }
+
+  // ── Cálculo precios ────────────────────────────────────
+  function calcPrecios() {
+    var premio = parseFloat(document.getElementById('a-premio').value) || 0;
+    var calc = document.getElementById('a-premio-calc');
+    if (premio > 0) {
+      var neto = premio * 0.81;
+      calc.textContent = '$' + neto.toLocaleString('es-AR', {minimumFractionDigits:2, maximumFractionDigits:2});
+    } else {
+      calc.textContent = '—';
+    }
+  }
+
+  function calcPremioNeto() {
+    var premio = parseFloat(document.getElementById('p-premio').value) || 0;
+    var calc = document.getElementById('p-premio-calc');
+    if (premio > 0) {
+      var neto = premio * 0.81;
+      calc.textContent = '$' + neto.toLocaleString('es-AR', {minimumFractionDigits:2, maximumFractionDigits:2});
+    } else {
+      calc.textContent = '—';
+    }
+  }
+
+  // ── Enviar datos al Apps Script ────────────────────────
+  function enviarDatos(datos, callbackOk, callbackError) {
+    var url = SCRIPT_URL + '?callback=respuesta&datos=' + encodeURIComponent(JSON.stringify(datos));
+    var script = document.createElement('script');
+    script.src = url;
+    window.respuesta = function(res) {
+      document.body.removeChild(script);
+      if (res.ok) callbackOk(res);
+      else callbackError(res.msg || 'Error desconocido');
+    };
+    script.onerror = function() {
+      document.body.removeChild(script);
+      callbackError('No se pudo conectar con la planilla.');
+    };
+    document.body.appendChild(script);
+  }
+
+  // ── Guardar asegurado ──────────────────────────────────
+  function guardarAsegurado() {
+    var nombre  = document.getElementById('a-nombre').value.trim();
+    var patente = document.getElementById('a-patente').value.trim();
+    var poliza  = document.getElementById('a-poliza').value.trim();
+
+    if (!nombre || !patente || !poliza) {
+      mostrarAlerta('alerta-asegurado', 'warning', '⚠ Completá los campos obligatorios: Nombre, Patente y N° Póliza.');
+      return;
+    }
+
+    var comp = document.getElementById('a-compania').value;
+    if (comp === '_otra') comp = document.getElementById('a-otra-comp').value.trim();
+
+    var premio = parseFloat(document.getElementById('a-premio').value) || 0;
+    var premioCuota = (premio * 0.81).toFixed(2);
+
+    var datos = {
+      accion:       'nuevoAsegurado',
+      nombre:       nombre,
+      dni:          document.getElementById('a-dni').value.trim(),
+      telefono:     document.getElementById('a-tel').value.trim(),
+      direccion:    document.getElementById('a-dir').value.trim(),
+      patente:      patente,
+      vehiculo:     document.getElementById('a-vehiculo').value.trim(),
+      esTrailer:    document.getElementById('a-trailer').value,
+      clienteRef:   document.getElementById('a-cliente-ref').value.trim(),
+      poliza:       poliza,
+      compania:     comp,
+      cuit:         document.getElementById('a-cuit').value.trim(),
+      periodoDesde: document.getElementById('a-desde').value,
+      periodoHasta: document.getElementById('a-hasta').value,
+      diaPago:      document.getElementById('a-dia-pago').value,
+      precioPublico: document.getElementById('a-pub').value,
+      valorPremio:  document.getElementById('a-premio').value,
+      premioCuota:  premioCuota,
+    };
+
+    mostrarAlerta('alerta-asegurado', 'loading', '<span class="spinner"></span>Guardando...');
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(datos)
+    }).then(function() {
+      mostrarAlerta('alerta-asegurado', 'success', '✓ Asegurado guardado correctamente en la planilla.');
+      limpiarAsegurado();
+    }).catch(function(err) {
+      mostrarAlerta('alerta-asegurado', 'danger', '✗ Error al guardar. Revisá tu conexión.');
+    });
+  }
+
+  // ── Guardar pago ───────────────────────────────────────
+  function guardarPago() {
+    var nombre = document.getElementById('p-nombre').value.trim();
+    var poliza = document.getElementById('p-poliza').value.trim();
+    var fecha  = document.getElementById('p-fecha').value;
+    var monto  = document.getElementById('p-monto').value;
+
+    if (!nombre || !poliza || !fecha || !monto) {
+      mostrarAlerta('alerta-pago', 'warning', '⚠ Completá: Nombre, N° Póliza, Fecha y Monto.');
+      return;
+    }
+
+    var premio = parseFloat(document.getElementById('p-premio').value) || 0;
+    var premioCuota = (premio * 0.81).toFixed(2);
+
+    var datos = {
+      accion:       'nuevoPago',
+      nombre:       nombre,
+      poliza:       poliza,
+      patente:      document.getElementById('p-patente').value.trim(),
+      compania:     document.getElementById('p-compania').value,
+      cuit:         document.getElementById('p-cuit').value.trim(),
+      fecha:        fecha,
+      monto:        monto,
+      formaPago:    document.getElementById('p-forma').value,
+      referencia:   document.getElementById('p-ref').value.trim(),
+      valorPremio:  document.getElementById('p-premio').value,
+      premioCuota:  premioCuota,
+      endoso:       document.getElementById('p-endoso').value.trim(),
+      observaciones: document.getElementById('p-obs').value.trim(),
+    };
+
+    mostrarAlerta('alerta-pago', 'loading', '<span class="spinner"></span>Registrando pago...');
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(datos)
+    }).then(function() {
+      mostrarAlerta('alerta-pago', 'success', '✓ Pago registrado correctamente en la planilla.');
+      limpiarPago();
+    }).catch(function(err) {
+      mostrarAlerta('alerta-pago', 'danger', '✗ Error al registrar. Revisá tu conexión.');
+    });
+  }
+
+  // ── Helpers ────────────────────────────────────────────
+  function mostrarAlerta(id, tipo, msg) {
+    var el = document.getElementById(id);
+    el.className = 'alerta ' + tipo;
+    el.innerHTML = msg;
+    if (tipo === 'success') {
+      setTimeout(function() { el.style.display = 'none'; }, 5000);
+    }
+  }
+
+  function limpiarAsegurado() {
+    ['a-nombre','a-dni','a-tel','a-dir','a-patente','a-vehiculo',
+     'a-cliente-ref','a-poliza','a-cuit','a-desde','a-hasta',
+     'a-dia-pago','a-pub','a-premio','a-otra-comp'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    document.getElementById('a-premio-calc').textContent = '—';
+    document.getElementById('a-compania').value = 'Agrosalta';
+    document.getElementById('a-trailer').value = 'No';
+    document.getElementById('campo-cliente-ref').style.display = 'none';
+    document.getElementById('campo-otra-comp').style.display = 'none';
+  }
+
+  function limpiarPago() {
+    ['p-nombre','p-poliza','p-patente','p-cuit','p-monto',
+     'p-ref','p-endoso','p-obs','p-premio'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    document.getElementById('p-fecha').value = hoy;
+    document.getElementById('p-premio-calc').textContent = '—';
+    document.getElementById('p-compania').value = 'Agrosalta';
+  }
+</script>
+</body>
+</html>
