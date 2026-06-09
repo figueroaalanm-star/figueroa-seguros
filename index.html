@@ -19,279 +19,63 @@
     --blanco: #ffffff;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: var(--gris);
-    color: var(--texto);
-    min-height: 100vh;
-  }
-
-  /* HEADER */
-  header {
-    background: var(--azul);
-    color: white;
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-  }
-  .shield {
-    font-size: 28px;
-    flex-shrink: 0;
-  }
-  header h1 {
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: .5px;
-    line-height: 1.2;
-  }
-  header p {
-    font-size: 11px;
-    opacity: .75;
-    margin-top: 2px;
-  }
-  .oro-bar {
-    height: 3px;
-    background: linear-gradient(90deg, var(--oro), #e8b84b);
-  }
-
-  /* TABS */
-  .tabs {
-    display: flex;
-    background: var(--azul);
-    padding: 0 24px;
-    gap: 4px;
-  }
-  .tab-btn {
-    background: none;
-    border: none;
-    color: rgba(255,255,255,.6);
-    padding: 12px 20px 10px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    border-bottom: 3px solid transparent;
-    transition: all .2s;
-    letter-spacing: .3px;
-  }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--gris); color: var(--texto); min-height: 100vh; }
+  header { background: var(--azul); color: white; padding: 16px 24px; display: flex; align-items: center; gap: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
+  .shield { font-size: 28px; flex-shrink: 0; }
+  header h1 { font-size: 18px; font-weight: 700; letter-spacing: .5px; line-height: 1.2; }
+  header p { font-size: 11px; opacity: .75; margin-top: 2px; }
+  .oro-bar { height: 3px; background: linear-gradient(90deg, var(--oro), #e8b84b); }
+  .tabs { display: flex; background: var(--azul); padding: 0 24px; gap: 4px; }
+  .tab-btn { background: none; border: none; color: rgba(255,255,255,.6); padding: 12px 20px 10px; font-size: 13px; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; transition: all .2s; letter-spacing: .3px; }
   .tab-btn:hover { color: rgba(255,255,255,.9); }
-  .tab-btn.active {
-    color: white;
-    border-bottom-color: var(--oro);
-  }
-
-  /* CONTENIDO */
-  .container {
-    max-width: 680px;
-    margin: 28px auto;
-    padding: 0 16px 40px;
-  }
+  .tab-btn.active { color: white; border-bottom-color: var(--oro); }
+  .container { max-width: 680px; margin: 28px auto; padding: 0 16px 40px; }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
-
-  /* CARD */
-  .card {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 1px 4px rgba(0,0,0,.08);
-    overflow: visible;
-    margin-bottom: 16px;
-  }
-  .card-header {
-    background: var(--azul-claro);
-    padding: 14px 20px;
-    border-bottom: 1px solid var(--borde);
-    border-radius: 10px 10px 0 0;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .card-header h2 {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--azul);
-    text-transform: uppercase;
-    letter-spacing: .5px;
-  }
+  .card { background: white; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,.08); overflow: visible; margin-bottom: 16px; }
+  .card-header { background: var(--azul-claro); padding: 14px 20px; border-bottom: 1px solid var(--borde); border-radius: 10px 10px 0 0; display: flex; align-items: center; gap: 8px; }
+  .card-header h2 { font-size: 14px; font-weight: 700; color: var(--azul); text-transform: uppercase; letter-spacing: .5px; }
   .card-body { padding: 20px; }
-
-  /* GRID */
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
   .col-full { grid-column: 1 / -1; }
-
-  /* FIELDS */
   .field { position: relative; }
-  label {
-    display: block;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--azul);
-    text-transform: uppercase;
-    letter-spacing: .4px;
-    margin-bottom: 5px;
-  }
+  label { display: block; font-size: 11px; font-weight: 700; color: var(--azul); text-transform: uppercase; letter-spacing: .4px; margin-bottom: 5px; }
   .req { color: var(--oro); margin-left: 2px; }
-  input, select, textarea {
-    width: 100%;
-    padding: 9px 12px;
-    border: 1.5px solid var(--borde);
-    border-radius: 6px;
-    font-size: 13px;
-    color: var(--texto);
-    background: white;
-    transition: border-color .15s, box-shadow .15s;
-    outline: none;
-  }
-  input:focus, select:focus, textarea:focus {
-    border-color: var(--azul-med);
-    box-shadow: 0 0 0 3px rgba(44,95,138,.12);
-  }
-  input[readonly] {
-    background: var(--gris);
-    color: #6b7a8d;
-    cursor: default;
-  }
-
-  /* AUTOCOMPLETE */
-  .autocomplete-list {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background: white;
-    border: 1.5px solid var(--azul-med);
-    border-top: none;
-    border-radius: 0 0 8px 8px;
-    max-height: 220px;
-    overflow-y: auto;
-    box-shadow: 0 6px 16px rgba(0,0,0,.15);
-    display: none;
-  }
+  input, select, textarea { width: 100%; padding: 9px 12px; border: 1.5px solid var(--borde); border-radius: 6px; font-size: 13px; color: var(--texto); background: white; transition: border-color .15s, box-shadow .15s; outline: none; }
+  input:focus, select:focus, textarea:focus { border-color: var(--azul-med); box-shadow: 0 0 0 3px rgba(44,95,138,.12); }
+  input[readonly] { background: var(--gris); color: #6b7a8d; cursor: default; }
+  .patente-editable { border-color: var(--oro) !important; background: var(--oro-claro) !important; color: var(--texto) !important; cursor: text !important; font-weight: 600; text-transform: uppercase; }
+  .patente-editable:focus { border-color: var(--oro) !important; box-shadow: 0 0 0 3px rgba(200,149,42,.18) !important; }
+  .patente-hint { font-size: 10px; color: var(--oro); margin-top: 3px; font-weight: 600; display: none; }
+  .patente-hint.visible { display: block; }
+  .autocomplete-list { position: absolute; top: 100%; left: 0; right: 0; z-index: 1000; background: white; border: 1.5px solid var(--azul-med); border-top: none; border-radius: 0 0 8px 8px; max-height: 220px; overflow-y: auto; box-shadow: 0 6px 16px rgba(0,0,0,.15); display: none; }
   .autocomplete-list.visible { display: block; }
-  .autocomplete-item {
-    padding: 9px 12px;
-    cursor: pointer;
-    font-size: 13px;
-    border-bottom: 1px solid #f0f0f0;
-    transition: background .1s;
-  }
+  .autocomplete-item { padding: 9px 12px; cursor: pointer; font-size: 13px; border-bottom: 1px solid #f0f0f0; transition: background .1s; }
   .autocomplete-item:last-child { border-bottom: none; }
-  .autocomplete-item:hover, .autocomplete-item.selected {
-    background: var(--azul-claro);
-  }
+  .autocomplete-item:hover { background: var(--azul-claro); }
   .autocomplete-item .nombre { font-weight: 600; color: var(--azul); }
   .autocomplete-item .detalle { font-size: 11px; color: #6b7a8d; margin-top: 1px; }
-
-  /* DIVIDER */
-  .divider {
-    height: 1px;
-    background: var(--borde);
-    margin: 16px 0;
-  }
-
-  /* BADGE ASEGURADO ENCONTRADO */
-  .badge-encontrado {
-    display: none;
-    align-items: center;
-    gap: 6px;
-    background: #e8f5ee;
-    border: 1px solid #a8d5b5;
-    border-radius: 6px;
-    padding: 8px 12px;
-    font-size: 12px;
-    color: var(--verde);
-    font-weight: 600;
-    margin-bottom: 14px;
-  }
+  .divider { height: 1px; background: var(--borde); margin: 16px 0; }
+  .badge-encontrado { display: none; align-items: center; gap: 6px; background: #e8f5ee; border: 1px solid #a8d5b5; border-radius: 6px; padding: 8px 12px; font-size: 12px; color: var(--verde); font-weight: 600; margin-bottom: 14px; }
   .badge-encontrado.visible { display: flex; }
-
-  /* BOTONES */
-  .btn {
-    padding: 11px 28px;
-    border: none;
-    border-radius: 7px;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-    letter-spacing: .3px;
-    transition: all .18s;
-  }
-  .btn-primary {
-    background: var(--azul);
-    color: white;
-  }
+  .btn { padding: 11px 28px; border: none; border-radius: 7px; font-size: 13px; font-weight: 700; cursor: pointer; letter-spacing: .3px; transition: all .18s; }
+  .btn-primary { background: var(--azul); color: white; }
   .btn-primary:hover { background: var(--azul-med); }
-  .btn-primary:disabled {
-    background: #a0adb8;
-    cursor: not-allowed;
-  }
-  .btn-secondary {
-    background: white;
-    color: var(--azul);
-    border: 1.5px solid var(--borde);
-  }
+  .btn-primary:disabled { background: #a0adb8; cursor: not-allowed; }
+  .btn-secondary { background: white; color: var(--azul); border: 1.5px solid var(--borde); }
   .btn-secondary:hover { border-color: var(--azul); }
-
-  .form-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    padding-top: 8px;
-  }
-
-  /* TOAST */
-  #toast {
-    position: fixed;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: var(--azul);
-    color: white;
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    box-shadow: 0 4px 16px rgba(0,0,0,.25);
-    opacity: 0;
-    transition: all .3s;
-    pointer-events: none;
-    z-index: 9999;
-    min-width: 240px;
-    text-align: center;
-  }
-  #toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
+  .form-footer { display: flex; justify-content: flex-end; gap: 10px; padding-top: 8px; }
+  #toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--azul); color: white; padding: 12px 24px; border-radius: 8px; font-size: 13px; font-weight: 600; box-shadow: 0 4px 16px rgba(0,0,0,.25); opacity: 0; transition: all .3s; pointer-events: none; z-index: 9999; min-width: 240px; text-align: center; }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   #toast.success { background: var(--verde); }
   #toast.error { background: var(--rojo); }
-
-  /* LOADING */
-  .spinner {
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    border: 2px solid rgba(255,255,255,.4);
-    border-top-color: white;
-    border-radius: 50%;
-    animation: spin .6s linear infinite;
-    margin-right: 6px;
-    vertical-align: middle;
-  }
+  .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,.4); border-top-color: white; border-radius: 50%; animation: spin .6s linear infinite; margin-right: 6px; vertical-align: middle; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  @media (max-width: 560px) {
-    .grid-2, .grid-3 { grid-template-columns: 1fr; }
-    .col-full { grid-column: 1; }
-    .container { padding: 0 12px 40px; }
-  }
+  @media (max-width: 560px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } .col-full { grid-column: 1; } .container { padding: 0 12px 40px; } }
 </style>
 </head>
 <body>
-
 <header>
   <div class="shield">🛡</div>
   <div>
@@ -300,79 +84,41 @@
   </div>
 </header>
 <div class="oro-bar"></div>
-
 <div class="tabs">
-  <button class="tab-btn active" onclick="switchTab('asegurado')">➕ Nuevo Asegurado</button>
-  <button class="tab-btn" onclick="switchTab('pago')">💳 Registrar Pago</button>
+  <button class="tab-btn active" onclick="switchTab('asegurado',event)">➕ Nuevo Asegurado</button>
+  <button class="tab-btn" onclick="switchTab('pago',event)">💳 Registrar Pago</button>
 </div>
-
 <div class="container">
 
-  <!-- ===== TAB NUEVO ASEGURADO ===== -->
+  <!-- TAB NUEVO ASEGURADO -->
   <div class="tab-panel active" id="tab-asegurado">
-
     <div class="card">
-      <div class="card-header">
-        <span>👤</span>
-        <h2>Datos del Asegurado</h2>
-      </div>
+      <div class="card-header"><span>👤</span><h2>Datos del Asegurado</h2></div>
       <div class="card-body">
         <div class="grid-2">
           <div class="field col-full">
             <label>Apellido y Nombre <span class="req">*</span></label>
             <input type="text" id="a-nombre" placeholder="García, Juan Manuel" autocomplete="off">
           </div>
-          <div class="field">
-            <label>DNI</label>
-            <input type="text" id="a-dni" placeholder="12.345.678">
-          </div>
-          <div class="field">
-            <label>Teléfono</label>
-            <input type="text" id="a-telefono" placeholder="11-1234-5678">
-          </div>
-          <div class="field col-full">
-            <label>Dirección</label>
-            <input type="text" id="a-direccion" placeholder="Av. San Martín 1234, Moreno">
-          </div>
+          <div class="field"><label>DNI</label><input type="text" id="a-dni" placeholder="12.345.678"></div>
+          <div class="field"><label>Teléfono</label><input type="text" id="a-telefono" placeholder="11-1234-5678"></div>
+          <div class="field col-full"><label>Dirección</label><input type="text" id="a-direccion" placeholder="Av. San Martín 1234, Moreno"></div>
         </div>
       </div>
     </div>
-
     <div class="card">
-      <div class="card-header">
-        <span>🚗</span>
-        <h2>Datos del Vehículo y Póliza</h2>
-      </div>
+      <div class="card-header"><span>🚗</span><h2>Datos del Vehículo y Póliza</h2></div>
       <div class="card-body">
         <div class="grid-2">
-          <div class="field">
-            <label>Patente</label>
-            <input type="text" id="a-patente" placeholder="ABC123" style="text-transform:uppercase">
-          </div>
-          <div class="field">
-            <label>Vehículo</label>
-            <input type="text" id="a-vehiculo" placeholder="Ford Focus 2020">
-          </div>
-          <div class="field">
-            <label>¿Es Trailer?</label>
-            <select id="a-trailer">
-              <option value="No">No</option>
-              <option value="Sí">Sí</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Cliente Asociado</label>
-            <input type="text" id="a-cliente-asociado" placeholder="(si aplica)">
-          </div>
+          <div class="field"><label>Patente</label><input type="text" id="a-patente" placeholder="ABC123" style="text-transform:uppercase"></div>
+          <div class="field"><label>Vehículo</label><input type="text" id="a-vehiculo" placeholder="Ford Focus 2020"></div>
+          <div class="field"><label>¿Es Trailer?</label><select id="a-trailer"><option value="No">No</option><option value="Sí">Sí</option></select></div>
+          <div class="field"><label>Cliente Asociado</label><input type="text" id="a-cliente-asociado" placeholder="(si aplica)"></div>
         </div>
         <div class="divider"></div>
         <div class="grid-2">
-          <div class="field">
-            <label>N° Póliza <span class="req">*</span></label>
-            <input type="text" id="a-poliza" placeholder="8.244.029">
-          </div>
-          <div class="field">
-            <label>Compañía <span class="req">*</span></label>
+          <div class="field"><label>N° Póliza <span class="req">*</span></label><input type="text" id="a-poliza" placeholder="8.244.029"></div>
+          <div class="field"><label>Compañía <span class="req">*</span></label>
             <select id="a-compania">
               <option value="">Seleccionar...</option>
               <option value="Agrosalta">Agrosalta</option>
@@ -387,36 +133,14 @@
               <option value="Otra">Otra</option>
             </select>
           </div>
-          <div class="field">
-            <label>CUIT Compañía</label>
-            <input type="text" id="a-cuit" placeholder="30-50006485-0">
-          </div>
-          <div class="field">
-            <label>Día de Pago</label>
-            <input type="number" id="a-dia-pago" placeholder="15" min="1" max="31">
-          </div>
-          <div class="field">
-            <label>Período Desde</label>
-            <input type="date" id="a-periodo-desde">
-          </div>
-          <div class="field">
-            <label>Período Hasta</label>
-            <input type="date" id="a-periodo-hasta">
-          </div>
-          <div class="field">
-            <label>Precio Público ($)</label>
-            <input type="number" id="a-precio" placeholder="0" min="0" step="0.01">
-          </div>
-          <div class="field">
-            <label>Valor Premio ($)</label>
-            <input type="number" id="a-premio" placeholder="0" min="0" step="0.01">
-          </div>
-          <div class="field">
-            <label>Premio -19% ($)</label>
-            <input type="number" id="a-premio19" placeholder="0" min="0" step="0.01">
-          </div>
-          <div class="field">
-            <label>Estado Póliza</label>
+          <div class="field"><label>CUIT Compañía</label><input type="text" id="a-cuit" placeholder="30-50006485-0"></div>
+          <div class="field"><label>Día de Pago</label><input type="number" id="a-dia-pago" placeholder="15" min="1" max="31"></div>
+          <div class="field"><label>Período Desde</label><input type="date" id="a-periodo-desde"></div>
+          <div class="field"><label>Período Hasta</label><input type="date" id="a-periodo-hasta"></div>
+          <div class="field"><label>Precio Público ($)</label><input type="number" id="a-precio" placeholder="0" min="0" step="0.01"></div>
+          <div class="field"><label>Valor Premio ($)</label><input type="number" id="a-premio" placeholder="0" min="0" step="0.01"></div>
+          <div class="field"><label>Premio -19% ($)</label><input type="number" id="a-premio19" placeholder="0" min="0" step="0.01"></div>
+          <div class="field"><label>Estado Póliza</label>
             <select id="a-estado">
               <option value="Vigente">Vigente</option>
               <option value="Vencida">Vencida</option>
@@ -427,50 +151,37 @@
         </div>
         <div class="form-footer">
           <button class="btn btn-secondary" onclick="limpiarAsegurado()">Limpiar</button>
-          <button class="btn btn-primary" id="btn-guardar-asegurado" onclick="guardarAsegurado()">
-            Guardar Asegurado
-          </button>
+          <button class="btn btn-primary" id="btn-guardar-asegurado" onclick="guardarAsegurado()">Guardar Asegurado</button>
         </div>
       </div>
     </div>
+  </div>
 
-  </div><!-- /tab-asegurado -->
-
-  <!-- ===== TAB PAGO ===== -->
+  <!-- TAB PAGO -->
   <div class="tab-panel" id="tab-pago">
-
     <div class="card">
-      <div class="card-header">
-        <span>🔍</span>
-        <h2>Buscar Asegurado</h2>
-      </div>
+      <div class="card-header"><span>🔍</span><h2>Buscar Asegurado</h2></div>
       <div class="card-body">
-        <p style="font-size:12px;color:#6b7a8d;margin-bottom:14px;">
-          Escribí nombre, patente o número de póliza para buscar al asegurado.
-        </p>
+        <p style="font-size:12px;color:#6b7a8d;margin-bottom:14px;">Escribí nombre, patente o número de póliza para buscar al asegurado.</p>
         <div class="grid-3">
-          <div class="field col-full" style="grid-column:1/-1">
+          <div class="field" style="grid-column:1/-1">
             <label>Apellido y Nombre</label>
             <div style="position:relative">
-              <input type="text" id="p-nombre" placeholder="García, Juan..." autocomplete="off"
-                oninput="buscarAsegurado('nombre')">
+              <input type="text" id="p-nombre" placeholder="García, Juan..." autocomplete="off" oninput="buscarAsegurado('nombre')">
               <div class="autocomplete-list" id="ac-nombre"></div>
             </div>
           </div>
           <div class="field">
             <label>Patente</label>
             <div style="position:relative">
-              <input type="text" id="p-patente" placeholder="ABC123" autocomplete="off"
-                style="text-transform:uppercase"
-                oninput="buscarAsegurado('patente')">
+              <input type="text" id="p-patente-busca" placeholder="ABC123" autocomplete="off" style="text-transform:uppercase" oninput="buscarAsegurado('patente')">
               <div class="autocomplete-list" id="ac-patente"></div>
             </div>
           </div>
           <div class="field" style="grid-column:span 2">
             <label>N° Póliza</label>
             <div style="position:relative">
-              <input type="text" id="p-poliza-busca" placeholder="8.244.029" autocomplete="off"
-                oninput="buscarAsegurado('poliza')">
+              <input type="text" id="p-poliza-busca" placeholder="8.244.029" autocomplete="off" oninput="buscarAsegurado('poliza')">
               <div class="autocomplete-list" id="ac-poliza"></div>
             </div>
           </div>
@@ -479,54 +190,32 @@
     </div>
 
     <div class="badge-encontrado" id="badge-encontrado">
-      <span>✅</span>
-      <span id="badge-texto">Asegurado encontrado</span>
+      <span>✅</span><span id="badge-texto">Asegurado encontrado</span>
     </div>
 
     <div class="card">
-      <div class="card-header">
-        <span>📋</span>
-        <h2>Datos del Asegurado (completados automáticamente)</h2>
-      </div>
+      <div class="card-header"><span>📋</span><h2>Datos del Asegurado</h2></div>
       <div class="card-body">
         <div class="grid-2">
-          <div class="field col-full">
-            <label>Nombre completo</label>
-            <input type="text" id="p-nombre-completo" readonly>
-          </div>
-          <div class="field">
-            <label>Póliza</label>
-            <input type="text" id="p-poliza-display" readonly>
-          </div>
-          <div class="field">
-            <label>Compañía</label>
-            <input type="text" id="p-compania-display" readonly>
-          </div>
+          <div class="field col-full"><label>Nombre completo</label><input type="text" id="p-nombre-completo" readonly></div>
+          <div class="field"><label>Póliza</label><input type="text" id="p-poliza-display" readonly></div>
+          <div class="field"><label>Compañía</label><input type="text" id="p-compania-display" readonly></div>
           <div class="field">
             <label>Patente</label>
-            <input type="text" id="p-patente-display" readonly>
+            <input type="text" id="p-patente-display" placeholder="Ingresá la patente" style="text-transform:uppercase" oninput="this.value=this.value.toUpperCase()">
+            <div class="patente-hint" id="patente-hint">✏️ Sin patente registrada — se guardará al registrar el pago</div>
           </div>
-          <div class="field">
-            <label>Vehículo</label>
-            <input type="text" id="p-vehiculo-display" readonly>
-          </div>
+          <div class="field"><label>Vehículo</label><input type="text" id="p-vehiculo-display" readonly></div>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-header">
-        <span>💰</span>
-        <h2>Datos del Pago</h2>
-      </div>
+      <div class="card-header"><span>💰</span><h2>Datos del Pago</h2></div>
       <div class="card-body">
         <div class="grid-2">
-          <div class="field">
-            <label>Monto Cobrado ($) <span class="req">*</span></label>
-            <input type="number" id="p-monto" placeholder="0" min="0" step="0.01">
-          </div>
-          <div class="field">
-            <label>Forma de Pago <span class="req">*</span></label>
+          <div class="field"><label>Monto Cobrado ($) <span class="req">*</span></label><input type="number" id="p-monto" placeholder="0" min="0" step="0.01"></div>
+          <div class="field"><label>Forma de Pago <span class="req">*</span></label>
             <select id="p-forma">
               <option value="Efectivo">Efectivo</option>
               <option value="Transferencia">Transferencia</option>
@@ -536,315 +225,211 @@
               <option value="MercadoPago">MercadoPago</option>
             </select>
           </div>
-          <div class="field">
-            <label>Referencia / Comprobante</label>
-            <input type="text" id="p-referencia" placeholder="N° transferencia, cheque...">
-          </div>
-          <div class="field">
-            <label>Fecha de Pago</label>
-            <input type="date" id="p-fecha">
-          </div>
-          <div class="field">
-            <label>Valor Premio ($)</label>
-            <input type="number" id="p-valor-premio" placeholder="0" min="0" step="0.01">
-          </div>
-          <div class="field">
-            <label>Endoso</label>
-            <input type="text" id="p-endoso" placeholder="(opcional)">
-          </div>
+          <div class="field"><label>Referencia / Comprobante</label><input type="text" id="p-referencia" placeholder="N° transferencia, cheque..."></div>
+          <div class="field"><label>Fecha de Pago</label><input type="date" id="p-fecha"></div>
+          <div class="field"><label>Valor Premio ($)</label><input type="number" id="p-valor-premio" placeholder="0" min="0" step="0.01"></div>
+          <div class="field"><label>Endoso</label><input type="text" id="p-endoso" placeholder="(opcional)"></div>
         </div>
         <div class="form-footer">
           <button class="btn btn-secondary" onclick="limpiarPago()">Limpiar</button>
-          <button class="btn btn-primary" id="btn-guardar-pago" onclick="guardarPago()">
-            Registrar Pago
-          </button>
+          <button class="btn btn-primary" id="btn-guardar-pago" onclick="guardarPago()">Registrar Pago</button>
         </div>
       </div>
     </div>
-
-  </div><!-- /tab-pago -->
+  </div>
 
 </div>
-
 <div id="toast"></div>
 
 <script>
-// =============================================
-// CONFIGURACIÓN
-// =============================================
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLj-iDPSyjcYzvtR9_xfQ_ehUthSbF6nMzZzLQd40oZJCs0UktTHjLyln0lS_CmC3Ptw/exec';
 
-// Cache de asegurados para autocompletado
 let aseguradosCache = [];
 let aseguradoSeleccionado = null;
 
-// =============================================
-// TABS
-// =============================================
-function switchTab(tab) {
+function switchTab(tab, event) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + tab).classList.add('active');
-  event.target.classList.add('active');
-
-  if (tab === 'pago' && aseguradosCache.length === 0) {
-    cargarAsegurados();
-  }
+  if (event && event.target) event.target.classList.add('active');
+  if (tab === 'pago' && aseguradosCache.length === 0) cargarAsegurados();
 }
 
-// =============================================
-// CARGAR ASEGURADOS PARA AUTOCOMPLETE
-// =============================================
 async function cargarAsegurados() {
   try {
     const res = await fetch(SCRIPT_URL + '?action=listarAsegurados');
     const data = await res.json();
-    if (data.ok) {
-      aseguradosCache = data.asegurados || [];
-    }
+    if (data.ok) aseguradosCache = data.asegurados || [];
   } catch(e) {
-    console.warn('No se pudieron cargar asegurados para autocompletado', e);
+    console.warn('No se pudieron cargar asegurados', e);
   }
 }
 
-// =============================================
-// AUTOCOMPLETADO
-// =============================================
 function buscarAsegurado(campo) {
-  const inputs = { nombre: 'p-nombre', patente: 'p-patente', poliza: 'p-poliza-busca' };
+  const inputs = { nombre: 'p-nombre', patente: 'p-patente-busca', poliza: 'p-poliza-busca' };
   const lists  = { nombre: 'ac-nombre', patente: 'ac-patente', poliza: 'ac-poliza' };
-
   const val = document.getElementById(inputs[campo]).value.toLowerCase().trim();
   const list = document.getElementById(lists[campo]);
-
-  // Cerrar otros
-  Object.keys(lists).forEach(k => {
-    if (k !== campo) document.getElementById(lists[k]).classList.remove('visible');
-  });
-
+  Object.keys(lists).forEach(k => { if (k !== campo) document.getElementById(lists[k]).classList.remove('visible'); });
   if (val.length < 2) { list.classList.remove('visible'); return; }
-
   const filtrados = aseguradosCache.filter(a => {
-    if (campo === 'nombre') return a.nombre.toLowerCase().includes(val);
+    if (campo === 'nombre') return a.nombre && a.nombre.toLowerCase().includes(val);
     if (campo === 'patente') return a.patente && a.patente.toLowerCase().includes(val);
     if (campo === 'poliza') return a.poliza && a.poliza.toString().includes(val);
   }).slice(0, 8);
-
   if (filtrados.length === 0) { list.classList.remove('visible'); return; }
-
-  list.innerHTML = filtrados.map((a, i) => `
-    <div class="autocomplete-item" onclick="seleccionarAsegurado(${i}, '${campo}', ${JSON.stringify(filtrados).replace(/"/g, '&quot;')})">
+  list.innerHTML = filtrados.map(a => `
+    <div class="autocomplete-item">
       <div class="nombre">${a.nombre}</div>
-      <div class="detalle">Póliza: ${a.poliza || '—'} · Patente: ${a.patente || '—'} · ${a.compania || ''}</div>
-    </div>
-  `).join('');
-
-  // Guardar referencia para click
-  list._data = filtrados;
+      <div class="detalle">Póliza: ${a.poliza||'—'} · Patente: ${a.patente||'Sin patente'} · ${a.compania||''}</div>
+    </div>`).join('');
   list.querySelectorAll('.autocomplete-item').forEach((el, i) => {
-    el.onclick = () => seleccionarAseguradoDirecto(list._data[i]);
+    el.addEventListener('click', () => seleccionarAseguradoDirecto(filtrados[i]));
   });
-
   list.classList.add('visible');
 }
 
 function seleccionarAseguradoDirecto(a) {
   aseguradoSeleccionado = a;
-
-  // Llenar campos búsqueda
   document.getElementById('p-nombre').value = a.nombre;
-  document.getElementById('p-patente').value = a.patente || '';
+  document.getElementById('p-patente-busca').value = a.patente || '';
   document.getElementById('p-poliza-busca').value = a.poliza || '';
-
-  // Llenar campos display
   document.getElementById('p-nombre-completo').value = a.nombre;
   document.getElementById('p-poliza-display').value = a.poliza || '';
   document.getElementById('p-compania-display').value = a.compania || '';
-  document.getElementById('p-patente-display').value = a.patente || '';
   document.getElementById('p-vehiculo-display').value = a.vehiculo || '';
 
-  // Badge
+  const patenteInput = document.getElementById('p-patente-display');
+  const patenteHint  = document.getElementById('patente-hint');
+  if (a.patente && a.patente.trim() !== '') {
+    patenteInput.value = a.patente;
+    patenteInput.readOnly = true;
+    patenteInput.className = '';
+    patenteHint.classList.remove('visible');
+  } else {
+    patenteInput.value = '';
+    patenteInput.readOnly = false;
+    patenteInput.className = 'patente-editable';
+    patenteInput.placeholder = 'Ingresá la patente (ej: ABC123)';
+    patenteHint.classList.add('visible');
+    setTimeout(() => patenteInput.focus(), 100);
+  }
+
+  if (a.premioCuota) document.getElementById('p-valor-premio').value = a.premioCuota;
+  else if (a.valorPremio) document.getElementById('p-valor-premio').value = a.valorPremio;
+
   const badge = document.getElementById('badge-encontrado');
   badge.classList.add('visible');
   document.getElementById('badge-texto').textContent =
-    `✅ ${a.nombre} — Póliza ${a.poliza || 'S/N'} — ${a.compania || ''}`;
+    `✅ ${a.nombre} — Póliza ${a.poliza||'S/N'} — ${a.compania||''}${!a.patente?' ⚠️ Sin patente registrada':' — '+a.patente}`;
 
-  // Cerrar listas
-  ['ac-nombre','ac-patente','ac-poliza'].forEach(id =>
-    document.getElementById(id).classList.remove('visible')
-  );
+  ['ac-nombre','ac-patente','ac-poliza'].forEach(id => document.getElementById(id).classList.remove('visible'));
 }
 
-// Cerrar autocomplete al hacer click fuera
 document.addEventListener('click', function(e) {
-  if (!e.target.closest('.field')) {
-    ['ac-nombre','ac-patente','ac-poliza'].forEach(id =>
-      document.getElementById(id).classList.remove('visible')
-    );
+  if (!e.target.closest('.field') && !e.target.closest('.autocomplete-list')) {
+    ['ac-nombre','ac-patente','ac-poliza'].forEach(id => document.getElementById(id).classList.remove('visible'));
   }
 });
 
-// =============================================
-// GUARDAR ASEGURADO
-// =============================================
 async function guardarAsegurado() {
-  const nombre = document.getElementById('a-nombre').value.trim();
-  const poliza = document.getElementById('a-poliza').value.trim();
+  const nombre   = document.getElementById('a-nombre').value.trim();
+  const poliza   = document.getElementById('a-poliza').value.trim();
   const compania = document.getElementById('a-compania').value;
-
-  if (!nombre || !poliza || !compania) {
-    showToast('Completá Nombre, Póliza y Compañía', 'error');
-    return;
-  }
-
+  if (!nombre || !poliza || !compania) { showToast('Completá Nombre, Póliza y Compañía', 'error'); return; }
   const btn = document.getElementById('btn-guardar-asegurado');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span> Guardando...';
-
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Guardando...';
   const datos = {
-    action: 'guardarAsegurado',
-    nombre, poliza, compania,
+    accion: 'nuevoAsegurado', nombre, poliza, compania,
     dni: document.getElementById('a-dni').value.trim(),
     telefono: document.getElementById('a-telefono').value.trim(),
     direccion: document.getElementById('a-direccion').value.trim(),
     patente: document.getElementById('a-patente').value.trim().toUpperCase(),
     vehiculo: document.getElementById('a-vehiculo').value.trim(),
-    trailer: document.getElementById('a-trailer').value,
+    esTrailer: document.getElementById('a-trailer').value,
     clienteAsociado: document.getElementById('a-cliente-asociado').value.trim(),
     cuit: document.getElementById('a-cuit').value.trim(),
-    periodoDes: document.getElementById('a-periodo-desde').value,
-    periodoHas: document.getElementById('a-periodo-hasta').value,
+    periodoDesde: document.getElementById('a-periodo-desde').value,
+    periodoHasta: document.getElementById('a-periodo-hasta').value,
     diaPago: document.getElementById('a-dia-pago').value,
     precioPublico: document.getElementById('a-precio').value,
     valorPremio: document.getElementById('a-premio').value,
-    premio19: document.getElementById('a-premio19').value,
     estadoPoliza: document.getElementById('a-estado').value,
   };
-
   try {
-    const res = await fetch(SCRIPT_URL, {
-      method: 'POST',
-      body: JSON.stringify(datos)
-    });
+    const res = await fetch(SCRIPT_URL, { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify(datos) });
     const data = await res.json();
-    if (data.ok) {
-      showToast('✅ Asegurado guardado correctamente', 'success');
-      limpiarAsegurado();
-      aseguradosCache = []; // Invalidar cache
-    } else {
-      showToast('Error: ' + (data.error || 'desconocido'), 'error');
-    }
-  } catch(e) {
-    showToast('Error de conexión', 'error');
-  }
-
-  btn.disabled = false;
-  btn.innerHTML = 'Guardar Asegurado';
+    if (data.ok) { showToast('✅ Asegurado guardado correctamente', 'success'); limpiarAsegurado(); aseguradosCache = []; }
+    else showToast('Error: ' + (data.msg || 'desconocido'), 'error');
+  } catch(e) { showToast('Error de conexión: ' + e.message, 'error'); }
+  btn.disabled = false; btn.innerHTML = 'Guardar Asegurado';
 }
 
-// =============================================
-// GUARDAR PAGO
-// =============================================
 async function guardarPago() {
   const monto = document.getElementById('p-monto').value;
-  const forma = document.getElementById('p-forma').value;
-
-  if (!aseguradoSeleccionado) {
-    showToast('Primero buscá y seleccioná un asegurado', 'error');
-    return;
-  }
-  if (!monto || parseFloat(monto) <= 0) {
-    showToast('Ingresá un monto válido', 'error');
-    return;
-  }
-
+  if (!aseguradoSeleccionado) { showToast('Primero buscá y seleccioná un asegurado', 'error'); return; }
+  if (!monto || parseFloat(monto) <= 0) { showToast('Ingresá un monto válido', 'error'); return; }
+  const patenteInput = document.getElementById('p-patente-display');
+  const patente = patenteInput.value.trim().toUpperCase() || aseguradoSeleccionado.patente || '';
+  if (!aseguradoSeleccionado.patente && !patente) { showToast('Ingresá la patente del vehículo', 'error'); patenteInput.focus(); return; }
   const btn = document.getElementById('btn-guardar-pago');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span> Registrando...';
-
-  const patente = document.getElementById('p-patente').value.trim().toUpperCase()
-    || aseguradoSeleccionado.patente || '';
-
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Registrando...';
   const datos = {
-    action: 'guardarPago',
+    accion: 'nuevoPago',
     nombre: aseguradoSeleccionado.nombre,
     poliza: aseguradoSeleccionado.poliza,
     compania: aseguradoSeleccionado.compania,
-    patente,
-    monto,
-    formaPago: forma,
+    cuit: aseguradoSeleccionado.cuit || '',
+    vehiculo: aseguradoSeleccionado.vehiculo || '',
+    patente, monto,
+    formaPago: document.getElementById('p-forma').value,
     referencia: document.getElementById('p-referencia').value.trim(),
     fecha: document.getElementById('p-fecha').value,
     valorPremio: document.getElementById('p-valor-premio').value,
     endoso: document.getElementById('p-endoso').value.trim(),
-    cuit: aseguradoSeleccionado.cuit || '',
-    vehiculo: aseguradoSeleccionado.vehiculo || '',
   };
-
   try {
-    const res = await fetch(SCRIPT_URL, {
-      method: 'POST',
-      body: JSON.stringify(datos)
-    });
+    const res = await fetch(SCRIPT_URL, { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify(datos) });
     const data = await res.json();
     if (data.ok) {
-      showToast('✅ Pago registrado correctamente', 'success');
+      showToast('✅ ' + (data.msg || 'Pago registrado correctamente'), 'success');
+      if (patente && !aseguradoSeleccionado.patente) {
+        aseguradoSeleccionado.patente = patente;
+        const idx = aseguradosCache.findIndex(a => a.poliza === aseguradoSeleccionado.poliza);
+        if (idx >= 0) aseguradosCache[idx].patente = patente;
+      }
       limpiarPago();
-    } else {
-      showToast('Error: ' + (data.error || 'desconocido'), 'error');
-    }
-  } catch(e) {
-    showToast('Error de conexión', 'error');
-  }
-
-  btn.disabled = false;
-  btn.innerHTML = 'Registrar Pago';
+    } else showToast('Error: ' + (data.msg || 'desconocido'), 'error');
+  } catch(e) { showToast('Error de conexión: ' + e.message, 'error'); }
+  btn.disabled = false; btn.innerHTML = 'Registrar Pago';
 }
 
-// =============================================
-// LIMPIAR
-// =============================================
 function limpiarAsegurado() {
-  ['a-nombre','a-dni','a-telefono','a-direccion','a-patente','a-vehiculo',
-   'a-cliente-asociado','a-poliza','a-cuit','a-dia-pago','a-periodo-desde',
-   'a-periodo-hasta','a-precio','a-premio','a-premio19'].forEach(id => {
-    document.getElementById(id).value = '';
-  });
+  ['a-nombre','a-dni','a-telefono','a-direccion','a-patente','a-vehiculo','a-cliente-asociado','a-poliza','a-cuit','a-dia-pago','a-periodo-desde','a-periodo-hasta','a-precio','a-premio','a-premio19'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
   document.getElementById('a-trailer').value = 'No';
   document.getElementById('a-compania').value = '';
   document.getElementById('a-estado').value = 'Vigente';
 }
 
 function limpiarPago() {
-  ['p-nombre','p-patente','p-poliza-busca','p-nombre-completo','p-poliza-display',
-   'p-compania-display','p-patente-display','p-vehiculo-display',
-   'p-monto','p-referencia','p-fecha','p-valor-premio','p-endoso'].forEach(id => {
-    document.getElementById(id).value = '';
-  });
+  ['p-nombre','p-patente-busca','p-poliza-busca','p-nombre-completo','p-poliza-display','p-compania-display','p-vehiculo-display','p-monto','p-referencia','p-valor-premio','p-endoso'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  const pi = document.getElementById('p-patente-display');
+  pi.value=''; pi.readOnly=false; pi.className=''; pi.placeholder='Ingresá la patente';
+  document.getElementById('patente-hint').classList.remove('visible');
   document.getElementById('p-forma').value = 'Efectivo';
   aseguradoSeleccionado = null;
   document.getElementById('badge-encontrado').classList.remove('visible');
+  document.getElementById('p-fecha').value = new Date().toISOString().split('T')[0];
 }
 
-// =============================================
-// TOAST
-// =============================================
-function showToast(msg, type = '') {
+function showToast(msg, type='') {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'show ' + type;
-  setTimeout(() => t.className = '', 3200);
+  t.textContent = msg; t.className = 'show ' + type;
+  setTimeout(() => t.className = '', 3500);
 }
 
-// =============================================
-// INIT
-// =============================================
 window.addEventListener('DOMContentLoaded', () => {
-  // Fecha de hoy por defecto en pago
-  const hoy = new Date().toISOString().split('T')[0];
-  document.getElementById('p-fecha').value = hoy;
-
-  // Precargar asegurados si se empieza en tab pago (poco probable)
+  document.getElementById('p-fecha').value = new Date().toISOString().split('T')[0];
   cargarAsegurados();
 });
 </script>
