@@ -3,703 +3,850 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Figueroa Seguros — Gestión</title>
+<title>Figueroa Seguros — Formulario</title>
 <style>
   :root {
-    --bg: #f7f5f0;
-    --card: #ffffff;
-    --border: #d8d4cc;
-    --text: #1a1a1a;
-    --muted: #6b6660;
-    --accent: #1a1a1a;
-    --success-bg: #ecfdf5;
-    --success-border: #34d399;
-    --success-text: #065f46;
-    --warning-bg: #fff8ec;
-    --warning-border: #f0a500;
-    --warning-text: #7a4500;
-    --danger-bg: #fef2f2;
-    --danger-border: #e74c3c;
-    --danger-text: #7a1515;
-    --radius: 8px;
+    --azul: #1a3a5c;
+    --azul-med: #2c5f8a;
+    --azul-claro: #e8f0f7;
+    --oro: #c8952a;
+    --oro-claro: #fdf6e8;
+    --gris: #f4f5f7;
+    --texto: #1e2732;
+    --borde: #cdd5de;
+    --verde: #1e7e50;
+    --rojo: #c0392b;
+    --blanco: #ffffff;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--bg);
-    color: var(--text);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--gris);
+    color: var(--texto);
     min-height: 100vh;
   }
 
-  .header {
-    background: var(--accent);
-    color: #fff;
-    padding: 14px 20px;
+  /* HEADER */
+  header {
+    background: var(--azul);
+    color: white;
+    padding: 16px 24px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    gap: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
   }
-
-  .header-marca {
+  .shield {
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+  header h1 {
     font-size: 18px;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
+    line-height: 1.2;
+  }
+  header p {
+    font-size: 11px;
+    opacity: .75;
+    margin-top: 2px;
+  }
+  .oro-bar {
+    height: 3px;
+    background: linear-gradient(90deg, var(--oro), #e8b84b);
+  }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    background: var(--azul);
+    padding: 0 24px;
+    gap: 4px;
+  }
+  .tab-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,.6);
+    padding: 12px 20px 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all .2s;
+    letter-spacing: .3px;
+  }
+  .tab-btn:hover { color: rgba(255,255,255,.9); }
+  .tab-btn.active {
+    color: white;
+    border-bottom-color: var(--oro);
+  }
+
+  /* CONTENIDO */
+  .container {
+    max-width: 680px;
+    margin: 28px auto;
+    padding: 0 16px 40px;
+  }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* CARD */
+  .card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+    overflow: visible;
+    margin-bottom: 16px;
+  }
+  .card-header {
+    background: var(--azul-claro);
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--borde);
+    border-radius: 10px 10px 0 0;
     display: flex;
     align-items: center;
     gap: 8px;
   }
-
-  .s-box {
-    background: #fff;
-    color: #1a1a1a;
-    font-size: 13px;
+  .card-header h2 {
+    font-size: 14px;
     font-weight: 700;
-    padding: 1px 5px;
-    border-radius: 3px;
+    color: var(--azul);
+    text-transform: uppercase;
+    letter-spacing: .5px;
   }
+  .card-body { padding: 20px; }
 
-  .header-sub {
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .col-full { grid-column: 1 / -1; }
+
+  /* FIELDS */
+  .field { position: relative; }
+  label {
+    display: block;
     font-size: 11px;
-    opacity: 0.65;
+    font-weight: 700;
+    color: var(--azul);
+    text-transform: uppercase;
+    letter-spacing: .4px;
+    margin-bottom: 5px;
   }
-
-  .tabs-nav {
-    background: #fff;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .tab-btn {
-    flex: 1;
-    min-width: 120px;
-    padding: 12px 8px;
+  .req { color: var(--oro); margin-left: 2px; }
+  input, select, textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1.5px solid var(--borde);
+    border-radius: 6px;
     font-size: 13px;
-    font-weight: 500;
-    color: var(--muted);
-    border: none;
-    background: none;
+    color: var(--texto);
+    background: white;
+    transition: border-color .15s, box-shadow .15s;
+    outline: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--azul-med);
+    box-shadow: 0 0 0 3px rgba(44,95,138,.12);
+  }
+  input[readonly] {
+    background: var(--gris);
+    color: #6b7a8d;
+    cursor: default;
+  }
+
+  /* AUTOCOMPLETE */
+  .autocomplete-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: white;
+    border: 1.5px solid var(--azul-med);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    max-height: 220px;
+    overflow-y: auto;
+    box-shadow: 0 6px 16px rgba(0,0,0,.15);
+    display: none;
+  }
+  .autocomplete-list.visible { display: block; }
+  .autocomplete-item {
+    padding: 9px 12px;
     cursor: pointer;
-    border-bottom: 3px solid transparent;
-    transition: all 0.15s;
-    white-space: nowrap;
-    font-family: inherit;
+    font-size: 13px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background .1s;
+  }
+  .autocomplete-item:last-child { border-bottom: none; }
+  .autocomplete-item:hover, .autocomplete-item.selected {
+    background: var(--azul-claro);
+  }
+  .autocomplete-item .nombre { font-weight: 600; color: var(--azul); }
+  .autocomplete-item .detalle { font-size: 11px; color: #6b7a8d; margin-top: 1px; }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--borde);
+    margin: 16px 0;
   }
 
-  .tab-btn.active {
-    color: var(--text);
-    border-bottom-color: var(--text);
-  }
-
-  .main { max-width: 600px; margin: 0 auto; padding: 16px; }
-
-  .panel { display: none; }
-  .panel.active { display: block; }
-
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px;
+  /* BADGE ASEGURADO ENCONTRADO */
+  .badge-encontrado {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    background: #e8f5ee;
+    border: 1px solid #a8d5b5;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: var(--verde);
+    font-weight: 600;
     margin-bottom: 14px;
   }
+  .badge-encontrado.visible { display: flex; }
 
-  .card-title {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 12px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-  .full { grid-column: 1 / -1; }
-
-  .field { display: flex; flex-direction: column; gap: 4px; }
-
-  .field label {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--muted);
-    letter-spacing: 0.3px;
-  }
-
-  .req { color: #c0392b; }
-
-  .field input,
-  .field select {
-    font-family: inherit;
-    font-size: 15px;
-    padding: 10px 11px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: #fff;
-    color: var(--text);
-    transition: border-color 0.15s;
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-  }
-
-  .field select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6660' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    padding-right: 28px;
-  }
-
-  .field input:focus,
-  .field select:focus {
-    outline: none;
-    border-color: var(--text);
-    box-shadow: 0 0 0 3px rgba(26,26,26,0.08);
-  }
-
-  .precio-calc {
-    background: #f7f5f0;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 10px 11px;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
-    min-height: 44px;
-  }
-
-  .btn-row {
-    display: flex;
-    gap: 8px;
-    margin-top: 6px;
-  }
-
+  /* BOTONES */
   .btn {
-    flex: 1;
-    padding: 13px 16px;
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: 600;
-    border-radius: var(--radius);
+    padding: 11px 28px;
+    border: none;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 700;
     cursor: pointer;
-    border: 1px solid var(--border);
-    background: #fff;
-    color: var(--text);
-    transition: all 0.15s;
+    letter-spacing: .3px;
+    transition: all .18s;
+  }
+  .btn-primary {
+    background: var(--azul);
+    color: white;
+  }
+  .btn-primary:hover { background: var(--azul-med); }
+  .btn-primary:disabled {
+    background: #a0adb8;
+    cursor: not-allowed;
+  }
+  .btn-secondary {
+    background: white;
+    color: var(--azul);
+    border: 1.5px solid var(--borde);
+  }
+  .btn-secondary:hover { border-color: var(--azul); }
+
+  .form-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 8px;
   }
 
-  .btn:active { transform: scale(0.98); }
-  .btn-primary { background: var(--text); color: #fff; border-color: var(--text); }
-
-  .alerta {
-    border-radius: var(--radius);
-    padding: 12px 14px;
-    font-size: 14px;
-    margin-bottom: 12px;
-    display: none;
-    line-height: 1.5;
+  /* TOAST */
+  #toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--azul);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 4px 16px rgba(0,0,0,.25);
+    opacity: 0;
+    transition: all .3s;
+    pointer-events: none;
+    z-index: 9999;
+    min-width: 240px;
+    text-align: center;
   }
-
-  .alerta.warning {
-    background: var(--warning-bg);
-    border: 1px solid var(--warning-border);
-    color: var(--warning-text);
-    display: block;
+  #toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
   }
+  #toast.success { background: var(--verde); }
+  #toast.error { background: var(--rojo); }
 
-  .alerta.danger {
-    background: var(--danger-bg);
-    border: 1px solid var(--danger-border);
-    color: var(--danger-text);
-    display: block;
-  }
-
-  .alerta.success {
-    background: var(--success-bg);
-    border: 1px solid var(--success-border);
-    color: var(--success-text);
-    display: block;
-  }
-
-  .alerta.loading {
-    background: #f0f0f0;
-    border: 1px solid #ccc;
-    color: #555;
-    display: block;
-  }
-
+  /* LOADING */
   .spinner {
     display: inline-block;
     width: 14px;
     height: 14px;
-    border: 2px solid #ccc;
-    border-top-color: #333;
+    border: 2px solid rgba(255,255,255,.4);
+    border-top-color: white;
     border-radius: 50%;
-    animation: spin 0.6s linear infinite;
-    vertical-align: -3px;
+    animation: spin .6s linear infinite;
     margin-right: 6px;
+    vertical-align: middle;
   }
-
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  .note {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 6px;
-    line-height: 1.5;
-  }
-
-  @media (max-width: 480px) {
+  @media (max-width: 560px) {
     .grid-2, .grid-3 { grid-template-columns: 1fr; }
-    .full { grid-column: 1; }
+    .col-full { grid-column: 1; }
+    .container { padding: 0 12px 40px; }
   }
 </style>
 </head>
 <body>
 
-<div class="header">
+<header>
+  <div class="shield">🛡</div>
   <div>
-    <div class="header-marca">
-      FIGUEROA <span class="s-box">S</span> SEGUROS GENERALES
-    </div>
-    <div class="header-sub">Carga de datos</div>
+    <h1>FIGUEROA SEGUROS GENERALES</h1>
+    <p>Puerto Rico 1769, Tortuguitas · Granaderos 10965, Moreno</p>
   </div>
+</header>
+<div class="oro-bar"></div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('asegurado')">➕ Nuevo Asegurado</button>
+  <button class="tab-btn" onclick="switchTab('pago')">💳 Registrar Pago</button>
 </div>
 
-<div class="tabs-nav">
-  <button class="tab-btn active" onclick="cambiarTab('asegurado', this)">
-    ➕ Nuevo asegurado
-  </button>
-  <button class="tab-btn" onclick="cambiarTab('pago', this)">
-    💲 Registrar pago
-  </button>
+<div class="container">
+
+  <!-- ===== TAB NUEVO ASEGURADO ===== -->
+  <div class="tab-panel active" id="tab-asegurado">
+
+    <div class="card">
+      <div class="card-header">
+        <span>👤</span>
+        <h2>Datos del Asegurado</h2>
+      </div>
+      <div class="card-body">
+        <div class="grid-2">
+          <div class="field col-full">
+            <label>Apellido y Nombre <span class="req">*</span></label>
+            <input type="text" id="a-nombre" placeholder="García, Juan Manuel" autocomplete="off">
+          </div>
+          <div class="field">
+            <label>DNI</label>
+            <input type="text" id="a-dni" placeholder="12.345.678">
+          </div>
+          <div class="field">
+            <label>Teléfono</label>
+            <input type="text" id="a-telefono" placeholder="11-1234-5678">
+          </div>
+          <div class="field col-full">
+            <label>Dirección</label>
+            <input type="text" id="a-direccion" placeholder="Av. San Martín 1234, Moreno">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span>🚗</span>
+        <h2>Datos del Vehículo y Póliza</h2>
+      </div>
+      <div class="card-body">
+        <div class="grid-2">
+          <div class="field">
+            <label>Patente</label>
+            <input type="text" id="a-patente" placeholder="ABC123" style="text-transform:uppercase">
+          </div>
+          <div class="field">
+            <label>Vehículo</label>
+            <input type="text" id="a-vehiculo" placeholder="Ford Focus 2020">
+          </div>
+          <div class="field">
+            <label>¿Es Trailer?</label>
+            <select id="a-trailer">
+              <option value="No">No</option>
+              <option value="Sí">Sí</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Cliente Asociado</label>
+            <input type="text" id="a-cliente-asociado" placeholder="(si aplica)">
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="grid-2">
+          <div class="field">
+            <label>N° Póliza <span class="req">*</span></label>
+            <input type="text" id="a-poliza" placeholder="8.244.029">
+          </div>
+          <div class="field">
+            <label>Compañía <span class="req">*</span></label>
+            <select id="a-compania">
+              <option value="">Seleccionar...</option>
+              <option value="Agrosalta">Agrosalta</option>
+              <option value="Mapfre">Mapfre</option>
+              <option value="Galicia Seguros">Galicia Seguros</option>
+              <option value="San Cristóbal">San Cristóbal</option>
+              <option value="La Segunda">La Segunda</option>
+              <option value="Zurich">Zurich</option>
+              <option value="SURA">SURA</option>
+              <option value="Provincia Seguros">Provincia Seguros</option>
+              <option value="Nación Seguros">Nación Seguros</option>
+              <option value="Otra">Otra</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>CUIT Compañía</label>
+            <input type="text" id="a-cuit" placeholder="30-50006485-0">
+          </div>
+          <div class="field">
+            <label>Día de Pago</label>
+            <input type="number" id="a-dia-pago" placeholder="15" min="1" max="31">
+          </div>
+          <div class="field">
+            <label>Período Desde</label>
+            <input type="date" id="a-periodo-desde">
+          </div>
+          <div class="field">
+            <label>Período Hasta</label>
+            <input type="date" id="a-periodo-hasta">
+          </div>
+          <div class="field">
+            <label>Precio Público ($)</label>
+            <input type="number" id="a-precio" placeholder="0" min="0" step="0.01">
+          </div>
+          <div class="field">
+            <label>Valor Premio ($)</label>
+            <input type="number" id="a-premio" placeholder="0" min="0" step="0.01">
+          </div>
+          <div class="field">
+            <label>Premio -19% ($)</label>
+            <input type="number" id="a-premio19" placeholder="0" min="0" step="0.01">
+          </div>
+          <div class="field">
+            <label>Estado Póliza</label>
+            <select id="a-estado">
+              <option value="Vigente">Vigente</option>
+              <option value="Vencida">Vencida</option>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Cancelada">Cancelada</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-footer">
+          <button class="btn btn-secondary" onclick="limpiarAsegurado()">Limpiar</button>
+          <button class="btn btn-primary" id="btn-guardar-asegurado" onclick="guardarAsegurado()">
+            Guardar Asegurado
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /tab-asegurado -->
+
+  <!-- ===== TAB PAGO ===== -->
+  <div class="tab-panel" id="tab-pago">
+
+    <div class="card">
+      <div class="card-header">
+        <span>🔍</span>
+        <h2>Buscar Asegurado</h2>
+      </div>
+      <div class="card-body">
+        <p style="font-size:12px;color:#6b7a8d;margin-bottom:14px;">
+          Escribí nombre, patente o número de póliza para buscar al asegurado.
+        </p>
+        <div class="grid-3">
+          <div class="field col-full" style="grid-column:1/-1">
+            <label>Apellido y Nombre</label>
+            <div style="position:relative">
+              <input type="text" id="p-nombre" placeholder="García, Juan..." autocomplete="off"
+                oninput="buscarAsegurado('nombre')">
+              <div class="autocomplete-list" id="ac-nombre"></div>
+            </div>
+          </div>
+          <div class="field">
+            <label>Patente</label>
+            <div style="position:relative">
+              <input type="text" id="p-patente" placeholder="ABC123" autocomplete="off"
+                style="text-transform:uppercase"
+                oninput="buscarAsegurado('patente')">
+              <div class="autocomplete-list" id="ac-patente"></div>
+            </div>
+          </div>
+          <div class="field" style="grid-column:span 2">
+            <label>N° Póliza</label>
+            <div style="position:relative">
+              <input type="text" id="p-poliza-busca" placeholder="8.244.029" autocomplete="off"
+                oninput="buscarAsegurado('poliza')">
+              <div class="autocomplete-list" id="ac-poliza"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="badge-encontrado" id="badge-encontrado">
+      <span>✅</span>
+      <span id="badge-texto">Asegurado encontrado</span>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span>📋</span>
+        <h2>Datos del Asegurado (completados automáticamente)</h2>
+      </div>
+      <div class="card-body">
+        <div class="grid-2">
+          <div class="field col-full">
+            <label>Nombre completo</label>
+            <input type="text" id="p-nombre-completo" readonly>
+          </div>
+          <div class="field">
+            <label>Póliza</label>
+            <input type="text" id="p-poliza-display" readonly>
+          </div>
+          <div class="field">
+            <label>Compañía</label>
+            <input type="text" id="p-compania-display" readonly>
+          </div>
+          <div class="field">
+            <label>Patente</label>
+            <input type="text" id="p-patente-display" readonly>
+          </div>
+          <div class="field">
+            <label>Vehículo</label>
+            <input type="text" id="p-vehiculo-display" readonly>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span>💰</span>
+        <h2>Datos del Pago</h2>
+      </div>
+      <div class="card-body">
+        <div class="grid-2">
+          <div class="field">
+            <label>Monto Cobrado ($) <span class="req">*</span></label>
+            <input type="number" id="p-monto" placeholder="0" min="0" step="0.01">
+          </div>
+          <div class="field">
+            <label>Forma de Pago <span class="req">*</span></label>
+            <select id="p-forma">
+              <option value="Efectivo">Efectivo</option>
+              <option value="Transferencia">Transferencia</option>
+              <option value="Cheque">Cheque</option>
+              <option value="Débito">Débito</option>
+              <option value="Crédito">Crédito</option>
+              <option value="MercadoPago">MercadoPago</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Referencia / Comprobante</label>
+            <input type="text" id="p-referencia" placeholder="N° transferencia, cheque...">
+          </div>
+          <div class="field">
+            <label>Fecha de Pago</label>
+            <input type="date" id="p-fecha">
+          </div>
+          <div class="field">
+            <label>Valor Premio ($)</label>
+            <input type="number" id="p-valor-premio" placeholder="0" min="0" step="0.01">
+          </div>
+          <div class="field">
+            <label>Endoso</label>
+            <input type="text" id="p-endoso" placeholder="(opcional)">
+          </div>
+        </div>
+        <div class="form-footer">
+          <button class="btn btn-secondary" onclick="limpiarPago()">Limpiar</button>
+          <button class="btn btn-primary" id="btn-guardar-pago" onclick="guardarPago()">
+            Registrar Pago
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /tab-pago -->
+
 </div>
 
-<div class="main">
-
-  <!-- ══ TAB NUEVO ASEGURADO ══════════════════════════════ -->
-  <div id="panel-asegurado" class="panel active">
-
-    <div id="alerta-asegurado" class="alerta"></div>
-
-    <div class="card">
-      <div class="card-title">Datos personales</div>
-      <div class="grid-2">
-        <div class="field full">
-          <label>Apellido y nombre <span class="req">*</span></label>
-          <input type="text" id="a-nombre" placeholder="Ej: Ruiz, Néstor" autocomplete="name">
-        </div>
-        <div class="field">
-          <label>DNI</label>
-          <input type="text" id="a-dni" placeholder="25.123.456" inputmode="numeric">
-        </div>
-        <div class="field">
-          <label>Teléfono</label>
-          <input type="tel" id="a-tel" placeholder="2664-123456">
-        </div>
-        <div class="field full">
-          <label>Dirección</label>
-          <input type="text" id="a-dir" placeholder="Av. Illia 123, San Luis">
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">Vehículo y póliza</div>
-      <div class="grid-2">
-        <div class="field">
-          <label>Patente <span class="req">*</span></label>
-          <input type="text" id="a-patente" placeholder="AB 123 CD" oninput="this.value=this.value.toUpperCase()">
-        </div>
-        <div class="field">
-          <label>Descripción del vehículo</label>
-          <input type="text" id="a-vehiculo" placeholder="Ej: Ford Ranger 2020">
-        </div>
-        <div class="field">
-          <label>¿Es trailer?</label>
-          <select id="a-trailer" onchange="toggleTrailer(this.value)">
-            <option value="No">No</option>
-            <option value="Sí">Sí</option>
-          </select>
-        </div>
-        <div class="field" id="campo-cliente-ref" style="display:none">
-          <label>Cliente asociado (titular)</label>
-          <input type="text" id="a-cliente-ref" placeholder="Nombre del titular">
-        </div>
-        <div class="field">
-          <label>N° Póliza <span class="req">*</span></label>
-          <input type="text" id="a-poliza" placeholder="8.229.136">
-        </div>
-        <div class="field">
-          <label>Compañía aseguradora</label>
-          <select id="a-compania" onchange="toggleOtraComp(this.value)">
-            <option>Agrosalta</option>
-            <option>Federación Patronal</option>
-            <option>Sancor Seguros</option>
-            <option>La Meridional</option>
-            <option>Mapfre</option>
-            <option>Rivadavia</option>
-            <option value="_otra">Otra...</option>
-          </select>
-        </div>
-        <div class="field" id="campo-otra-comp" style="display:none">
-          <label>Nombre de la compañía</label>
-          <input type="text" id="a-otra-comp" placeholder="Nombre">
-        </div>
-        <div class="field">
-          <label>CUIT compañía</label>
-          <input type="text" id="a-cuit" placeholder="30-50006485-0">
-        </div>
-        <div class="field">
-          <label>Período desde</label>
-          <input type="date" id="a-desde" onchange="calcHasta()">
-        </div>
-        <div class="field">
-          <label>Período hasta <small>(auto +6 meses)</small></label>
-          <input type="date" id="a-hasta">
-        </div>
-        <div class="field">
-          <label>Día de pago asignado</label>
-          <input type="number" id="a-dia-pago" min="1" max="28" placeholder="Ej: 10" inputmode="numeric">
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">Valores del seguro (cuota mensual)</div>
-      <div class="grid-3">
-        <div class="field">
-          <label>Precio público ($) <span class="req">*</span></label>
-          <input type="number" id="a-pub" placeholder="0" inputmode="decimal" oninput="calcPrecios()">
-        </div>
-        <div class="field">
-          <label>Valor premio cuota ($)</label>
-          <input type="number" id="a-premio" placeholder="0" inputmode="decimal" oninput="calcPrecios()">
-        </div>
-        <div class="field">
-          <label>Premio −19% (a compañía)</label>
-          <div class="precio-calc" id="a-premio-calc">—</div>
-        </div>
-      </div>
-      <p class="note">
-        <strong>Precio público:</strong> lo que cobrás al cliente.<br>
-        <strong>Valor premio:</strong> lo que indica la compañía por esa cuota.<br>
-        <strong>Premio −19%:</strong> lo que vos le pagás a la compañía.
-      </p>
-    </div>
-
-    <div class="btn-row">
-      <button class="btn" onclick="limpiarAsegurado()">Limpiar</button>
-      <button class="btn btn-primary" onclick="guardarAsegurado()">Guardar asegurado</button>
-    </div>
-  </div>
-
-  <!-- ══ TAB REGISTRAR PAGO ════════════════════════════════ -->
-  <div id="panel-pago" class="panel">
-
-    <div id="alerta-pago" class="alerta"></div>
-
-    <div class="card">
-      <div class="card-title">Datos del asegurado</div>
-      <div class="grid-2">
-        <div class="field full">
-          <label>Apellido y nombre <span class="req">*</span></label>
-          <input type="text" id="p-nombre" placeholder="Ej: Ruiz, Néstor">
-        </div>
-        <div class="field">
-          <label>N° Póliza <span class="req">*</span></label>
-          <input type="text" id="p-poliza" placeholder="8.229.136">
-        </div>
-        <div class="field">
-          <label>Patente</label>
-          <input type="text" id="p-patente" placeholder="AB 123 CD" oninput="this.value=this.value.toUpperCase()">
-        </div>
-        <div class="field">
-          <label>Compañía</label>
-          <select id="p-compania">
-            <option>Agrosalta</option>
-            <option>Federación Patronal</option>
-            <option>Sancor Seguros</option>
-            <option>La Meridional</option>
-            <option>Mapfre</option>
-            <option>Rivadavia</option>
-            <option>Otra</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>CUIT compañía</label>
-          <input type="text" id="p-cuit" placeholder="30-50006485-0">
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">Datos del pago</div>
-      <div class="grid-2">
-        <div class="field">
-          <label>Fecha de pago <span class="req">*</span></label>
-          <input type="date" id="p-fecha">
-        </div>
-        <div class="field">
-          <label>Monto cobrado ($) <span class="req">*</span></label>
-          <input type="number" id="p-monto" placeholder="0" inputmode="decimal">
-        </div>
-        <div class="field">
-          <label>Forma de pago</label>
-          <select id="p-forma">
-            <option>Efectivo</option>
-            <option>Transferencia</option>
-            <option>Cheque</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Referencia / N° cheque</label>
-          <input type="text" id="p-ref" placeholder="Opcional">
-        </div>
-        <div class="field">
-          <label>Valor premio cuota ($)</label>
-          <input type="number" id="p-premio" placeholder="0" inputmode="decimal" oninput="calcPremioNeto()">
-        </div>
-        <div class="field">
-          <label>Premio −19% (a compañía)</label>
-          <div class="precio-calc" id="p-premio-calc">—</div>
-        </div>
-        <div class="field">
-          <label>Endoso</label>
-          <input type="text" id="p-endoso" placeholder="Si aplica">
-        </div>
-        <div class="field full">
-          <label>Observaciones</label>
-          <input type="text" id="p-obs" placeholder="Ej: Cuota junio 2026">
-        </div>
-      </div>
-    </div>
-
-    <div class="btn-row">
-      <button class="btn" onclick="limpiarPago()">Limpiar</button>
-      <button class="btn btn-primary" onclick="guardarPago()">Registrar pago</button>
-    </div>
-  </div>
-
-</div>
+<div id="toast"></div>
 
 <script>
-  // ── ID de la planilla y URL del Apps Script ────────────
-  var SHEET_ID = '1xevLHs_LE1VEZEAyPgRXah-rU5uUOjGkFTySBQft9hM';
-  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLj-iDPSyjcYzvtR9_xfQ_ehUthSbF6nMzZzLQd40oZJCs0UktTHjLyln0lS_CmC3Ptw/exec'; // Reemplazar con la URL del Apps Script
+// =============================================
+// CONFIGURACIÓN
+// =============================================
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLj-iDPSyjcYzvtR9_xfQ_ehUthSbF6nMzZzLQd40oZJCs0UktTHjLyln0lS_CmC3Ptw/exec';
 
-  // ── Tabs ───────────────────────────────────────────────
-  function cambiarTab(id, btn) {
-    document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
-    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
-    document.getElementById('panel-' + id).classList.add('active');
-    btn.classList.add('active');
+// Cache de asegurados para autocompletado
+let aseguradosCache = [];
+let aseguradoSeleccionado = null;
+
+// =============================================
+// TABS
+// =============================================
+function switchTab(tab) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  event.target.classList.add('active');
+
+  if (tab === 'pago' && aseguradosCache.length === 0) {
+    cargarAsegurados();
+  }
+}
+
+// =============================================
+// CARGAR ASEGURADOS PARA AUTOCOMPLETE
+// =============================================
+async function cargarAsegurados() {
+  try {
+    const res = await fetch(SCRIPT_URL + '?action=listarAsegurados');
+    const data = await res.json();
+    if (data.ok) {
+      aseguradosCache = data.asegurados || [];
+    }
+  } catch(e) {
+    console.warn('No se pudieron cargar asegurados para autocompletado', e);
+  }
+}
+
+// =============================================
+// AUTOCOMPLETADO
+// =============================================
+function buscarAsegurado(campo) {
+  const inputs = { nombre: 'p-nombre', patente: 'p-patente', poliza: 'p-poliza-busca' };
+  const lists  = { nombre: 'ac-nombre', patente: 'ac-patente', poliza: 'ac-poliza' };
+
+  const val = document.getElementById(inputs[campo]).value.toLowerCase().trim();
+  const list = document.getElementById(lists[campo]);
+
+  // Cerrar otros
+  Object.keys(lists).forEach(k => {
+    if (k !== campo) document.getElementById(lists[k]).classList.remove('visible');
+  });
+
+  if (val.length < 2) { list.classList.remove('visible'); return; }
+
+  const filtrados = aseguradosCache.filter(a => {
+    if (campo === 'nombre') return a.nombre.toLowerCase().includes(val);
+    if (campo === 'patente') return a.patente && a.patente.toLowerCase().includes(val);
+    if (campo === 'poliza') return a.poliza && a.poliza.toString().includes(val);
+  }).slice(0, 8);
+
+  if (filtrados.length === 0) { list.classList.remove('visible'); return; }
+
+  list.innerHTML = filtrados.map((a, i) => `
+    <div class="autocomplete-item" onclick="seleccionarAsegurado(${i}, '${campo}', ${JSON.stringify(filtrados).replace(/"/g, '&quot;')})">
+      <div class="nombre">${a.nombre}</div>
+      <div class="detalle">Póliza: ${a.poliza || '—'} · Patente: ${a.patente || '—'} · ${a.compania || ''}</div>
+    </div>
+  `).join('');
+
+  // Guardar referencia para click
+  list._data = filtrados;
+  list.querySelectorAll('.autocomplete-item').forEach((el, i) => {
+    el.onclick = () => seleccionarAseguradoDirecto(list._data[i]);
+  });
+
+  list.classList.add('visible');
+}
+
+function seleccionarAseguradoDirecto(a) {
+  aseguradoSeleccionado = a;
+
+  // Llenar campos búsqueda
+  document.getElementById('p-nombre').value = a.nombre;
+  document.getElementById('p-patente').value = a.patente || '';
+  document.getElementById('p-poliza-busca').value = a.poliza || '';
+
+  // Llenar campos display
+  document.getElementById('p-nombre-completo').value = a.nombre;
+  document.getElementById('p-poliza-display').value = a.poliza || '';
+  document.getElementById('p-compania-display').value = a.compania || '';
+  document.getElementById('p-patente-display').value = a.patente || '';
+  document.getElementById('p-vehiculo-display').value = a.vehiculo || '';
+
+  // Badge
+  const badge = document.getElementById('badge-encontrado');
+  badge.classList.add('visible');
+  document.getElementById('badge-texto').textContent =
+    `✅ ${a.nombre} — Póliza ${a.poliza || 'S/N'} — ${a.compania || ''}`;
+
+  // Cerrar listas
+  ['ac-nombre','ac-patente','ac-poliza'].forEach(id =>
+    document.getElementById(id).classList.remove('visible')
+  );
+}
+
+// Cerrar autocomplete al hacer click fuera
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.field')) {
+    ['ac-nombre','ac-patente','ac-poliza'].forEach(id =>
+      document.getElementById(id).classList.remove('visible')
+    );
+  }
+});
+
+// =============================================
+// GUARDAR ASEGURADO
+// =============================================
+async function guardarAsegurado() {
+  const nombre = document.getElementById('a-nombre').value.trim();
+  const poliza = document.getElementById('a-poliza').value.trim();
+  const compania = document.getElementById('a-compania').value;
+
+  if (!nombre || !poliza || !compania) {
+    showToast('Completá Nombre, Póliza y Compañía', 'error');
+    return;
   }
 
-  // ── Fecha hoy por defecto ──────────────────────────────
-  var hoy = new Date().toISOString().split('T')[0];
+  const btn = document.getElementById('btn-guardar-asegurado');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Guardando...';
+
+  const datos = {
+    action: 'guardarAsegurado',
+    nombre, poliza, compania,
+    dni: document.getElementById('a-dni').value.trim(),
+    telefono: document.getElementById('a-telefono').value.trim(),
+    direccion: document.getElementById('a-direccion').value.trim(),
+    patente: document.getElementById('a-patente').value.trim().toUpperCase(),
+    vehiculo: document.getElementById('a-vehiculo').value.trim(),
+    trailer: document.getElementById('a-trailer').value,
+    clienteAsociado: document.getElementById('a-cliente-asociado').value.trim(),
+    cuit: document.getElementById('a-cuit').value.trim(),
+    periodoDes: document.getElementById('a-periodo-desde').value,
+    periodoHas: document.getElementById('a-periodo-hasta').value,
+    diaPago: document.getElementById('a-dia-pago').value,
+    precioPublico: document.getElementById('a-precio').value,
+    valorPremio: document.getElementById('a-premio').value,
+    premio19: document.getElementById('a-premio19').value,
+    estadoPoliza: document.getElementById('a-estado').value,
+  };
+
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify(datos)
+    });
+    const data = await res.json();
+    if (data.ok) {
+      showToast('✅ Asegurado guardado correctamente', 'success');
+      limpiarAsegurado();
+      aseguradosCache = []; // Invalidar cache
+    } else {
+      showToast('Error: ' + (data.error || 'desconocido'), 'error');
+    }
+  } catch(e) {
+    showToast('Error de conexión', 'error');
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = 'Guardar Asegurado';
+}
+
+// =============================================
+// GUARDAR PAGO
+// =============================================
+async function guardarPago() {
+  const monto = document.getElementById('p-monto').value;
+  const forma = document.getElementById('p-forma').value;
+
+  if (!aseguradoSeleccionado) {
+    showToast('Primero buscá y seleccioná un asegurado', 'error');
+    return;
+  }
+  if (!monto || parseFloat(monto) <= 0) {
+    showToast('Ingresá un monto válido', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('btn-guardar-pago');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Registrando...';
+
+  const patente = document.getElementById('p-patente').value.trim().toUpperCase()
+    || aseguradoSeleccionado.patente || '';
+
+  const datos = {
+    action: 'guardarPago',
+    nombre: aseguradoSeleccionado.nombre,
+    poliza: aseguradoSeleccionado.poliza,
+    compania: aseguradoSeleccionado.compania,
+    patente,
+    monto,
+    formaPago: forma,
+    referencia: document.getElementById('p-referencia').value.trim(),
+    fecha: document.getElementById('p-fecha').value,
+    valorPremio: document.getElementById('p-valor-premio').value,
+    endoso: document.getElementById('p-endoso').value.trim(),
+    cuit: aseguradoSeleccionado.cuit || '',
+    vehiculo: aseguradoSeleccionado.vehiculo || '',
+  };
+
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify(datos)
+    });
+    const data = await res.json();
+    if (data.ok) {
+      showToast('✅ Pago registrado correctamente', 'success');
+      limpiarPago();
+    } else {
+      showToast('Error: ' + (data.error || 'desconocido'), 'error');
+    }
+  } catch(e) {
+    showToast('Error de conexión', 'error');
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = 'Registrar Pago';
+}
+
+// =============================================
+// LIMPIAR
+// =============================================
+function limpiarAsegurado() {
+  ['a-nombre','a-dni','a-telefono','a-direccion','a-patente','a-vehiculo',
+   'a-cliente-asociado','a-poliza','a-cuit','a-dia-pago','a-periodo-desde',
+   'a-periodo-hasta','a-precio','a-premio','a-premio19'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('a-trailer').value = 'No';
+  document.getElementById('a-compania').value = '';
+  document.getElementById('a-estado').value = 'Vigente';
+}
+
+function limpiarPago() {
+  ['p-nombre','p-patente','p-poliza-busca','p-nombre-completo','p-poliza-display',
+   'p-compania-display','p-patente-display','p-vehiculo-display',
+   'p-monto','p-referencia','p-fecha','p-valor-premio','p-endoso'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('p-forma').value = 'Efectivo';
+  aseguradoSeleccionado = null;
+  document.getElementById('badge-encontrado').classList.remove('visible');
+}
+
+// =============================================
+// TOAST
+// =============================================
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'show ' + type;
+  setTimeout(() => t.className = '', 3200);
+}
+
+// =============================================
+// INIT
+// =============================================
+window.addEventListener('DOMContentLoaded', () => {
+  // Fecha de hoy por defecto en pago
+  const hoy = new Date().toISOString().split('T')[0];
   document.getElementById('p-fecha').value = hoy;
 
-  // ── Toggles ────────────────────────────────────────────
-  function toggleTrailer(val) {
-    document.getElementById('campo-cliente-ref').style.display = val === 'Sí' ? 'block' : 'none';
-  }
-
-  function toggleOtraComp(val) {
-    document.getElementById('campo-otra-comp').style.display = val === '_otra' ? 'block' : 'none';
-  }
-
-  // ── Auto período hasta (+6 meses) ─────────────────────
-  function calcHasta() {
-    var desde = document.getElementById('a-desde').value;
-    if (!desde) return;
-    var d = new Date(desde);
-    d.setMonth(d.getMonth() + 6);
-    document.getElementById('a-hasta').value = d.toISOString().split('T')[0];
-  }
-
-  // ── Cálculo precios ────────────────────────────────────
-  function calcPrecios() {
-    var premio = parseFloat(document.getElementById('a-premio').value) || 0;
-    var calc = document.getElementById('a-premio-calc');
-    if (premio > 0) {
-      var neto = premio * 0.81;
-      calc.textContent = '$' + neto.toLocaleString('es-AR', {minimumFractionDigits:2, maximumFractionDigits:2});
-    } else {
-      calc.textContent = '—';
-    }
-  }
-
-  function calcPremioNeto() {
-    var premio = parseFloat(document.getElementById('p-premio').value) || 0;
-    var calc = document.getElementById('p-premio-calc');
-    if (premio > 0) {
-      var neto = premio * 0.81;
-      calc.textContent = '$' + neto.toLocaleString('es-AR', {minimumFractionDigits:2, maximumFractionDigits:2});
-    } else {
-      calc.textContent = '—';
-    }
-  }
-
-  // ── Enviar datos al Apps Script ────────────────────────
-  function enviarDatos(datos, callbackOk, callbackError) {
-    var url = SCRIPT_URL + '?callback=respuesta&datos=' + encodeURIComponent(JSON.stringify(datos));
-    var script = document.createElement('script');
-    script.src = url;
-    window.respuesta = function(res) {
-      document.body.removeChild(script);
-      if (res.ok) callbackOk(res);
-      else callbackError(res.msg || 'Error desconocido');
-    };
-    script.onerror = function() {
-      document.body.removeChild(script);
-      callbackError('No se pudo conectar con la planilla.');
-    };
-    document.body.appendChild(script);
-  }
-
-  // ── Guardar asegurado ──────────────────────────────────
-  function guardarAsegurado() {
-    var nombre  = document.getElementById('a-nombre').value.trim();
-    var patente = document.getElementById('a-patente').value.trim();
-    var poliza  = document.getElementById('a-poliza').value.trim();
-
-    if (!nombre || !patente || !poliza) {
-      mostrarAlerta('alerta-asegurado', 'warning', '⚠ Completá los campos obligatorios: Nombre, Patente y N° Póliza.');
-      return;
-    }
-
-    var comp = document.getElementById('a-compania').value;
-    if (comp === '_otra') comp = document.getElementById('a-otra-comp').value.trim();
-
-    var premio = parseFloat(document.getElementById('a-premio').value) || 0;
-    var premioCuota = (premio * 0.81).toFixed(2);
-
-    var datos = {
-      accion:       'nuevoAsegurado',
-      nombre:       nombre,
-      dni:          document.getElementById('a-dni').value.trim(),
-      telefono:     document.getElementById('a-tel').value.trim(),
-      direccion:    document.getElementById('a-dir').value.trim(),
-      patente:      patente,
-      vehiculo:     document.getElementById('a-vehiculo').value.trim(),
-      esTrailer:    document.getElementById('a-trailer').value,
-      clienteRef:   document.getElementById('a-cliente-ref').value.trim(),
-      poliza:       poliza,
-      compania:     comp,
-      cuit:         document.getElementById('a-cuit').value.trim(),
-      periodoDesde: document.getElementById('a-desde').value,
-      periodoHasta: document.getElementById('a-hasta').value,
-      diaPago:      document.getElementById('a-dia-pago').value,
-      precioPublico: document.getElementById('a-pub').value,
-      valorPremio:  document.getElementById('a-premio').value,
-      premioCuota:  premioCuota,
-    };
-
-    mostrarAlerta('alerta-asegurado', 'loading', '<span class="spinner"></span>Guardando...');
-
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(datos)
-    }).then(function() {
-      mostrarAlerta('alerta-asegurado', 'success', '✓ Asegurado guardado correctamente en la planilla.');
-      limpiarAsegurado();
-    }).catch(function(err) {
-      mostrarAlerta('alerta-asegurado', 'danger', '✗ Error al guardar. Revisá tu conexión.');
-    });
-  }
-
-  // ── Guardar pago ───────────────────────────────────────
-  function guardarPago() {
-    var nombre = document.getElementById('p-nombre').value.trim();
-    var poliza = document.getElementById('p-poliza').value.trim();
-    var fecha  = document.getElementById('p-fecha').value;
-    var monto  = document.getElementById('p-monto').value;
-
-    if (!nombre || !poliza || !fecha || !monto) {
-      mostrarAlerta('alerta-pago', 'warning', '⚠ Completá: Nombre, N° Póliza, Fecha y Monto.');
-      return;
-    }
-
-    var premio = parseFloat(document.getElementById('p-premio').value) || 0;
-    var premioCuota = (premio * 0.81).toFixed(2);
-
-    var datos = {
-      accion:       'nuevoPago',
-      nombre:       nombre,
-      poliza:       poliza,
-      patente:      document.getElementById('p-patente').value.trim(),
-      compania:     document.getElementById('p-compania').value,
-      cuit:         document.getElementById('p-cuit').value.trim(),
-      fecha:        fecha,
-      monto:        monto,
-      formaPago:    document.getElementById('p-forma').value,
-      referencia:   document.getElementById('p-ref').value.trim(),
-      valorPremio:  document.getElementById('p-premio').value,
-      premioCuota:  premioCuota,
-      endoso:       document.getElementById('p-endoso').value.trim(),
-      observaciones: document.getElementById('p-obs').value.trim(),
-    };
-
-    mostrarAlerta('alerta-pago', 'loading', '<span class="spinner"></span>Registrando pago...');
-
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(datos)
-    }).then(function() {
-      mostrarAlerta('alerta-pago', 'success', '✓ Pago registrado correctamente en la planilla.');
-      limpiarPago();
-    }).catch(function(err) {
-      mostrarAlerta('alerta-pago', 'danger', '✗ Error al registrar. Revisá tu conexión.');
-    });
-  }
-
-  // ── Helpers ────────────────────────────────────────────
-  function mostrarAlerta(id, tipo, msg) {
-    var el = document.getElementById(id);
-    el.className = 'alerta ' + tipo;
-    el.innerHTML = msg;
-    if (tipo === 'success') {
-      setTimeout(function() { el.style.display = 'none'; }, 5000);
-    }
-  }
-
-  function limpiarAsegurado() {
-    ['a-nombre','a-dni','a-tel','a-dir','a-patente','a-vehiculo',
-     'a-cliente-ref','a-poliza','a-cuit','a-desde','a-hasta',
-     'a-dia-pago','a-pub','a-premio','a-otra-comp'].forEach(function(id) {
-      var el = document.getElementById(id);
-      if (el) el.value = '';
-    });
-    document.getElementById('a-premio-calc').textContent = '—';
-    document.getElementById('a-compania').value = 'Agrosalta';
-    document.getElementById('a-trailer').value = 'No';
-    document.getElementById('campo-cliente-ref').style.display = 'none';
-    document.getElementById('campo-otra-comp').style.display = 'none';
-  }
-
-  function limpiarPago() {
-    ['p-nombre','p-poliza','p-patente','p-cuit','p-monto',
-     'p-ref','p-endoso','p-obs','p-premio'].forEach(function(id) {
-      var el = document.getElementById(id);
-      if (el) el.value = '';
-    });
-    document.getElementById('p-fecha').value = hoy;
-    document.getElementById('p-premio-calc').textContent = '—';
-    document.getElementById('p-compania').value = 'Agrosalta';
-  }
+  // Precargar asegurados si se empieza en tab pago (poco probable)
+  cargarAsegurados();
+});
 </script>
 </body>
 </html>
